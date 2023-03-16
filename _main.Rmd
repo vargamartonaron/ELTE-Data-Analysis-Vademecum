@@ -1,4 +1,4 @@
---- 
+---
 title: "Adatelemzési Kisokos"
 subtitle: "Jegyzet"
 author: 
@@ -10,15 +10,19 @@ output:
   bookdown::gitbook:
     config: 
       toc:
-       collapse: section
+       collapse: subsection
+       scroll_highlight: yes
       search: yes
       fontsettings:
         size: 2
     split_by: section
-    includes:
-      after_body: banner.html
+    toc_float: true
+    includes: 
+      in_header: toc.css
+    #includes:
+      #after_body: banner.html
     df_print: paged
-    theme: !expr bslib::bs_theme()
+    theme: united
 documentclass: book
 bibliography: [book.bib, packages.bib]
 biblio-style: apalike
@@ -28,292 +32,33 @@ description: |
   This is an ELTE University material about how to conduct various statistical methods.
 link-citations: yes
 twitter-handle : vargamartonaron
+editor_options: 
+  markdown: 
+    wrap: 72
 ---
-**JEGYZET**
-
-**Nagy Tamás, Aczél Balázs**
 
 **ELTE PPK**
 
-[[Metaanalízis
-vademecum]](https://docs.google.com/document/d/1k4DsNl8oCs3NPrU6Ask46qbtUPogY_lAhKViV6piT7U/edit?mode=html#heading=h.t83vel3be1zp)
+[\[Metaanalízis vademecum\]](https://docs.google.com/document/d/1k4DsNl8oCs3NPrU6Ask46qbtUPogY_lAhKViV6piT7U/edit?mode=html#heading=h.t83vel3be1zp)
 
-[[Meta-analízis workshop - 1.
-nap]](https://docs.google.com/presentation/d/1xrbn_EB4G3P76OrgEzrX2sRB0IYMNZb9AvlsERt-sEY/edit#slide=id.p)
+[\[Meta-analízis workshop - 1. nap\]](https://docs.google.com/presentation/d/1xrbn_EB4G3P76OrgEzrX2sRB0IYMNZb9AvlsERt-sEY/edit#slide=id.p)
 
-[[Meta-analízis workshop - 2.
-nap]](https://docs.google.com/presentation/d/1f7B43XufTRfHV8eiwu3mg7Sue4MJvV1OBg6XNCCU9Vc)
+[\[Meta-analízis workshop - 2. nap\]](https://docs.google.com/presentation/d/1f7B43XufTRfHV8eiwu3mg7Sue4MJvV1OBg6XNCCU9Vc)
 
-[[Meta-analízis
-workshop]](https://docs.google.com/document/d/11I0_ZVjS2o8AS5K-JttyHG-2_Z8g-xnH2sjIWR5i3V0/edit)
-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
+[\[Meta-analízis workshop\]](https://docs.google.com/document/d/11I0_ZVjS2o8AS5K-JttyHG-2_Z8g-xnH2sjIWR5i3V0/edit)
 
-[[Statisztikai
-vademecum]](https://docs.google.com/document/d/1RCPzh3GqXojEPPfYYgyI4uV52tjFSdECx_NCXoS0SDc/edit?mode=html#heading=h.7bd67wbeq6fn)
+---
 
-[[Registered Report
-Vademecum]](https://docs.google.com/document/d/155LyJXyGsCp5rx00ulW0NabYdg19ifzM9JIbBzWTQOQ/edit?mode=html#heading=h.g6ssb1irxam4)
+[\[Statisztikai vademecum\]](https://docs.google.com/document/d/1RCPzh3GqXojEPPfYYgyI4uV52tjFSdECx_NCXoS0SDc/edit?mode=html#heading=h.7bd67wbeq6fn)
 
-[[Best practices
-vademecum]](https://docs.google.com/document/d/1j9oSB1YWY3KclN-IfoxQ7H0rTvccI4-iCk640r-lYzk/edit?mode=html#heading=h.9tncyej87ts7)
+[\[Registered Report Vademecum\]](https://docs.google.com/document/d/155LyJXyGsCp5rx00ulW0NabYdg19ifzM9JIbBzWTQOQ/edit?mode=html#heading=h.g6ssb1irxam4)
 
-## TARTALOM
+[\[Best practices vademecum\]](https://docs.google.com/document/d/1j9oSB1YWY3KclN-IfoxQ7H0rTvccI4-iCk640r-lYzk/edit?mode=html#heading=h.9tncyej87ts7)
 
-**[FOGALOMTÁR A LINEÁRIS
-REGRESSZIÓHOZ](#fogalomtár-a-lineáris-regresszióhoz) 5**
-
-> [Hasznos linkek](#hasznos-linkek) 5
->
-> **[A regresszióról általánosságban](#a-regresszióról-általánosságban)
-> 6**
->
-> **[Legkisebb négyzetek módszere](#legkisebb-négyzetek-módszere) 6**
->
-> **[R és R2](#r-és-r2) 7**
->
-> **[F statisztika](#f-statisztika) 7**
->
-> **[A prediktorok hatékonyságának
-> megítélése](#a-prediktorok-hatékonyságának-megítélése) 8**
->
-> [A regressziós koefficiensek/ béták
-> (hiányzik)](#a-regressziós-koefficiensek-béták-hiányzik) 8
->
-> **[Többváltozós regresszió](#többváltozós-regresszió) 9**
->
-> **[Regressziós módszerek](#regressziós-módszerek) 10**
->
-> [Hierarchikus módszer](#hierarchikus-módszer) 10
->
-> [Kényszerített bevitel ("forced
-> entry")](#kényszerített-bevitel-forced-entry) 10
->
-> [Lépésről lépésre történő regresszió (Stepwise
-> methods)](#lépésről-lépésre-történő-regresszió-stepwise-methods) 11
->
-> [All subsets methods](#all-subsets-methods) 12
->
-> [A megfelelő módszer kiválasztása](#a-megfelelő-módszer-kiválasztása)
-> 12
->
-> **[AIC (Akaike Information Criteria) és BIC (Bayesian Information
-> Criteria)](#aic-akaike-information-criteria-és-bic-bayesian-information-criteria)
-> 13**
->
-> **[A modell általánosításának
-> feltételei](#a-modell-általánosításának-feltételei) 13**
->
-> **[Keresztvalidálás
-> (cross-validation)](#keresztvalidálás-cross-validation) 15**
->
-> **[Mintaméret a regresszióban](#mintaméret-a-regresszióban) 15**
->
-> **[Multikollinearitás](#multikollinearitás) 16**
->
-> **[Cook's distance vagy Cook's D](#cooks-distance-vagy-cooks-d) 17**
->
-> **[Shiny App-ek](#shiny-app-ek) 17**
->
-> **[Regresszió--elemzés (Regression
-> diagnostics)](#regresszióelemzés-regression-diagnostics) 18**
->
-> **[A multilevel (többszintű) regresszióról
-> (19.2)](#a-multilevel-többszintű-regresszióról-19.2) 20**
->
-> [Hierarchikus adatok (19.2.)](#hierarchikus-adatok-19.2.) 20
->
-> [Osztályon belüli korreláció (Intraclass Correlation (ICC),
-> 19.2.1.)](#osztályon-belüli-korreláció-intraclass-correlation-icc-19.2.1.)
-> 20
->
-> [A többszintű regresszió előnyei
-> (19.2.2.)](#a-többszintű-regresszió-előnyei-19.2.2.) 20
->
-> **[Fix és random hatások (19.3.2)](#fix-és-random-hatások-19.3.2) 21**
->
-> **[Fix és random együtthatók](#fix-és-random-együtthatók) 21**
->
-> **[A többszintes regressziós
-> modell](#a-többszintes-regressziós-modell) 22**
->
-> **[A többszintű regressziós modellek illeszkedésének vizsgálata és
-> összehasonlítása](#a-többszintű-regressziós-modellek-illeszkedésének-vizsgálata-és-összehasonlítása)
-> 24**
->
-> **[Kovariancia struktúrák típusai
-> (19.4.2)](#kovariancia-struktúrák-típusai-19.4.2) 25**
->
-> [Variancia komponensek:](#variancia-komponensek) 25
->
-> [Diagonális:](#diagonális) 26
->
-> [AR(1):](#ar1) 26
->
-> [Strukturálatlan:](#strukturálatlan) 26
->
-> **[Előfeltevések (19.5.1.)](#előfeltevések-19.5.1.) 27**
->
-> **[Minta méret és statisztikai erő
-> (19.5.2.)](#minta-méret-és-statisztikai-erő-19.5.2.) 28**
->
-> **[Központosított változók/ Centred variables
-> (19.5.3.)](#központosított-változók-centred-variables-19.5.3.) 28**
->
-> [Mikor centráljunk?](#mikor-centráljunk) 29
->
-> [Group mean vagy grand mean jobb?](#group-mean-vagy-grand-mean-jobb)
-> 29
->
-> **[Szükségünk van-e multilevel modellre?
-> (19.6.6)](#szükségünk-van-e-multilevel-modellre-19.6.6) 29**
->
-> **[Növekedési modellek (19.7)](#növekedési-modellek-19.7) 30**
->
-> [Növekedési görbék (polinomok)](#növekedési-görbék-polinomok) 30
->
-> **[Az eredmények publikálása](#az-eredmények-publikálása) 30**
->
-> **[Logisztikus Regresszió](#logisztikus-regresszió) 31**
->
-> **[Mit tud a logisztikus
-> regresszió?](#mit-tud-a-logisztikus-regresszió) 31**
->
-> **[A logisztikus regresszió
-> egyenlete](#a-logisztikus-regresszió-egyenlete) 32**
->
-> **[Log-likelihood (8.3.1)](#log-likelihood-8.3.1) 32**
->
-> **[A modell értékelése (8.3.2)](#a-modell-értékelése-8.3.2) 33**
->
-> **[Assessing the model : R and R2
-> (8.3.3.)](#assessing-the-model-r-and-r2-8.3.3.) 34**
->
-> **[A modell értékelése (8.3.4)](#a-modell-értékelése-8.3.4) 35**
->
-> **[A prediktorok modellhez való hozzájárulásának felbecslése
-> (8.3.5)](#a-prediktorok-modellhez-való-hozzájárulásának-felbecslése-8.3.5)
-> 35**
->
-> **[Odds ratio (8.3.6)](#odds-ratio-8.3.6) 36**
->
-> **[A logisztikus regresszió előfeltételei
-> (8.4.1)](#a-logisztikus-regresszió-előfeltételei-8.4.1) 36**
->
-> **[A logisztikus regresszió sajátos problémái (8.4.2. és
-> 8.4.3)](#a-logisztikus-regresszió-sajátos-problémái-8.4.2.-és-8.4.3)
-> 37**
->
-> **[Hogyan közöljük a logisztikus regresszió eredményét?
-> (8.7)](#hogyan-közöljük-a-logisztikus-regresszió-eredményét-8.7) 38**
-
-**[FOGALOMTÁR A BAYES
-STATISZTIKÁHOZ](#fogalomtár-a-bayes-statisztikához) 39**
-
-> **[Bayesiánus valószínűség (szubjektív
-> valószínűség)](#bayesiánus-valószínűség-szubjektív-valószínűség) 39**
->
-> **[Valószínűségszámítási
-> alapfogalmak](#valószínűségszámítási-alapfogalmak) 40**
->
-> [Marginális valószínűség (Marginal probability)
-> p(A)](#marginális-valószínűség-marginal-probability-pa) 40
->
-> [Együttes valószínűség (Joint probability) p(A,B) (olvasd:p(A és
-> B))](#együttes-valószínűség-joint-probability-pab-olvasdpa-és-b) 40
->
-> [Feltételes valószínűség (Conditional probability): p(A\|B) (olvasd:
-> p(A ha B
-> igaz))](#feltételes-valószínűség-conditional-probability-pab-olvasd-pa-ha-b-igaz)
-> 40
->
-> [Valószínűség típusok
-> (http://sites.nicholas.duke.edu/statsreview/probability/jmc/)](#valószínűség-típusok-httpsites.nicholas.duke.edustatsreviewprobabilityjmc)
-> 42
->
-> **[Bayes tétel (Bayes' theorem, Bayes' rule, Bayes'
-> law)](#bayes-tétel-bayes-theorem-bayes-rule-bayes-law) 42**
->
-> **[Bayesiánus következtetés (Bayesian
-> inference)](#bayesiánus-következtetés-bayesian-inference) 43**
->
-> **[Evidencia](#evidencia) 44**
->
-> **[Hipotézis](#hipotézis) 45**
->
-> **[Sűrűségfüggvény (Probability Density Function,
-> PDF)](#sűrűségfüggvény-probability-density-function-pdf) 46**
->
-> **[Valószínűségi tömegfüggvény (probability mass function,
-> PMF)](#valószínűségi-tömegfüggvény-probability-mass-function-pmf) 46**
->
-> **[Prior](#prior) 46**
->
-> **[Likelihood](#likelihood) 48**
->
-> [A likelihood törvény alapján](#a-likelihood-törvény-alapján) 48
->
-> [A likelihood elv](#a-likelihood-elv) 48
->
-> **[Marginális likelihood](#marginális-likelihood) 50**
->
-> **[Posterior valószínűségek](#posterior-valószínűségek) 50**
->
-> **[Bayes faktor (B vagy BF)](#bayes-faktor-b-vagy-bf) 51**
->
-> **[Hihetőségi Intervallum (Credible
-> Interval)](#hihetőségi-intervallum-credible-interval) 54**
->
-> **[Konjugált prior](#konjugált-prior) 55**
->
-> **[A maximum entrópia elve (Principle of maximum
-> entropy)](#a-maximum-entrópia-elve-principle-of-maximum-entropy) 56**
->
-> **[Empirikus Bayes módszer](#empirikus-bayes-módszer) 56**
->
-> **[Cromwell szabály](#cromwell-szabály) 56**
->
-> **[Bernstein--von Mises tétel](#bernsteinvon-mises-tétel) 57**
->
-> **[Bayes-féle információs kritérium (másnéven Schwarz
-> kritérium)](#bayes-féle-információs-kritérium-másnéven-schwarz-kritérium)
-> 57**
->
-> **[Uniform eloszlás](#uniform-eloszlás) 57**
->
-> **[Lagrange szorzó (Lagrange
-> Multiplier)](#lagrange-szorzó-lagrange-multiplier) 58**
->
-> **[Maximum Likelihood becslés (MLE)](#maximum-likelihood-becslés-mle)
-> 58**
->
-> **[Maximum a posteriori becslés](#maximum-a-posteriori-becslés) 59**
->
-> **[Markov-lánc Monte-Carlo (MCMC)
-> módszerek](#markov-lánc-monte-carlo-mcmc-módszerek) 59**
->
-> **[Bayesiánus lineáris regresszió](#bayesiánus-lineáris-regresszió)
-> 60**
->
-> **[Bayesiánus becslés vagy bayesiánus
-> cselekvés](#bayesiánus-becslés-vagy-bayesiánus-cselekvés) 60**
->
-> **[Veszteség függvény (Loss
-> function)](#veszteség-függvény-loss-function) 61**
->
-> **[Közelítő Bayesiánus Eljárások](#közelítő-bayesiánus-eljárások) 61**
->
-> **[Jeffreys-Lindley paradoxon](#jeffreys-lindley-paradoxon) 61**
->
-> **[Hiperparaméter](#hiperparaméter) 62**
->
-> **[Bayesiánus hálózat (Bayesian
-> network)](#bayesiánus-hálózat-bayesian-network) 62**
->
-> **[Savage-Dickey density ratio](#savage-dickey-density-ratio) 62**
 
 <!--chapter:end:index.Rmd-->
 
-# FOGALOMTÁR A LINEÁRIS REGRESSZIÓHOZ
+# FOGALOMTÁR A LINEÁRIS REGRESSZIÓHOZ {-}
 
 ## Hasznos linkek
 
@@ -363,7 +108,7 @@ reprezentálja az adatokat, így az az egyenes a legjobb, amely esetében a
 legkisebb a reziduálisok négyzetösszege - a legkisebb négyzetek módszere
 pedig ezt az egyenest találja meg számunkra.
 
-[[Ezen a linken]{.ul}](http://www.dangoldstein.com/regression.html)
+[[Ezen a linken]](http://www.dangoldstein.com/regression.html)
 játékosan is ki lehet próbálni hogyan működik a legkisebb négyzetek
 módszere.
 
@@ -397,7 +142,7 @@ variancia hányadosa - azaz a modell és a modellben található hiba
 aránya. Tehát egy jó modellnek nagy F-ratio-val kell rendelkeznie
 (legalább F = 1), míg egy kevésbé jobb modellnek kisebbel.
 
-![](media/image16.png){width="0.8333333333333334in" height="0.625in"}
+![](images/image24.png){width="0.8333333333333334in" height="0.625in"}
 
 MS~M~ = mean squares of the model = a modelltől való eltérések négyzetre
 emelve és összeadva, majd átlagolva
@@ -425,7 +170,7 @@ lesz a "jóslás" eredménye. Ebben az esetben a regressziós együttható
 nem egy hatékony bejóslás, de jó kiindulópont a regressziós modellek
 megítéléséhez.
 
-Ahhoz hogy egy modell hasznos legyen, a regressziós együtthatónak *(b*)
+Ahhoz hogy egy modell hasznos legyen, a regressziós együtthatónak (*b*)
 szignifikánsan különböznie kell 0-tól. Ennek eldöntésére t-tesztet
 használunk. Nullhipotézisnek az előzőek alapján az az esetet választjuk,
 amikor *b* nulla. Ha a teszt szignifikáns, akkor valószínűsíthető, hogy
@@ -448,7 +193,7 @@ A többváltozós lineáris regresszió az egyszerű lineáris regresszió
 logikai kiterjesztése arra az esetre, amikor több prediktor változónk
 van. A regressziós egyenlet a következő:
 
-![](media/image1.png){width="3.2291666666666665in"
+![](images/image6.png){width="3.2291666666666665in"
 height="0.5208333333333334in"}
 
 Ahol, Y a függő változó, b1 az első prediktor (X1i) együtthatója, b2 a
@@ -468,7 +213,7 @@ számát jelöli).
 Az következő ábra egy két prediktor változóból álló három dimenziós
 modellt ábrázol (szaggatott vonal jelöli a regressziós síkot):
 
-![](media/image10.png){width="3.910617891513561in"
+![](images/image13.png){width="3.910617891513561in"
 height="3.0781255468066493in"}
 
 ## Regressziós módszerek
@@ -480,109 +225,109 @@ változóktól függ, különös megfontolást igényel, hogy mely változókat
 vigyük be a modellbe. A már meglévő modellekbe új változókat az elméleti
 háttér figyelembevételével érdemes beilleszteni.
 
--   ### Hierarchikus módszer
+### Hierarchikus módszer
 
-> A hierarchikus módszer lényege, hogy a módszert alkalmazó kutató a
-> korábbi munkákra alapozva választja ki, hogy mely független változókat
-> milyen sorrendben viszi be a modellbe. Általában véve a már ismert
-> független változók prioritást élveznek, ezután következnek az újak,
-> amelyek hatása még nem ismert. Ezen új változók bevihetők egyszerre,
-> lépésenként, vagy hierarchikusan (azaz a becsült hatásnagyság
-> alapján).
+A hierarchikus módszer lényege, hogy a módszert alkalmazó kutató a
+korábbi munkákra alapozva választja ki, hogy mely független változókat
+milyen sorrendben viszi be a modellbe. Általában véve a már ismert
+független változók prioritást élveznek, ezután következnek az újak,
+amelyek hatása még nem ismert. Ezen új változók bevihetők egyszerre,
+lépésenként, vagy hierarchikusan (azaz a becsült hatásnagyság
+alapján).
 
--   ### Kényszerített bevitel ("forced entry")
+### Kényszerített bevitel ("forced entry")
 
-> Ebben a módszerben a független változók egyszerre kerülnek a modellbe,
-> ez esetben a hierarchikus módszerhez képest a kutató nem hoz döntést a
-> prediktorok sorrendjéről, viszont fontos, hogy a változók bevitelét
-> itt is az elméleti háttér indokolja. Egyes kutatók szerint az egyetlen
-> helyes módja az elméleti tesztelésnek, mivel a lépésenkénti bevitelt
-> az adatok random variációja oly módon befolyásolja, hogy az eredmény
-> ritkán lesz replikálható.
+Ebben a módszerben a független változók egyszerre kerülnek a modellbe,
+ez esetben a hierarchikus módszerhez képest a kutató nem hoz döntést a
+prediktorok sorrendjéről, viszont fontos, hogy a változók bevitelét
+itt is az elméleti háttér indokolja. Egyes kutatók szerint az egyetlen
+helyes módja az elméleti tesztelésnek, mivel a lépésenkénti bevitelt
+az adatok random variációja oly módon befolyásolja, hogy az eredmény
+ritkán lesz replikálható.
 
--   ### Lépésről lépésre történő regresszió (Stepwise methods)
+### Lépésről lépésre történő regresszió (Stepwise methods)
 
-> Ebben a regressziós módszerben a független változók sorrendjét pusztán
-> matematikai szempontok alapján döntjük el. Ennek a sorrendnek három
-> fajtája lehet: előrefele történő (forward) hátrafele történő
-> (backward) és mindkét irányba történő (both).
->
-> Az **előre fele történő** regresszió során a modellbe először a
-> konstans (b0) kerül be. Ezután a program megkeresi azt a független
-> változót ami a legjobban bejósolja a függő változót. Ezt úgy teszi
-> meg, hogy azt választja ki, amelyiknek a legnagyobb korrelációja van a
-> függő változóval. Ha ez a változó ténylegesen fejleszti a modell
-> képességét, hogy bejósolja a függő változót, akkor ezt a független
-> változót megtartja, és keres egy második változót. A feltétele ennek a
-> változónak a kiválasztására, hogy ennek legyen a legnagyobb
-> fél-parciális (semi partial) korrelációja a függő változóval.
-> Képzeljük el, hogy az első változó 40%-át megmagyarázza a függő
-> változó varianciájának, tehát 60% még megmagyarázásra vár. A program
-> azt a változót keresi meg, amelyik a legjobban meg tudja magyarázni a
-> fennmaradó 60%-ot, a meglévő 40-ben már nem érdekelt. Így ez a
-> fél-parciális korreláció azt mutatja meg, hogy mennyi „új variancia"
-> van megmagyarázva a második független változó által. Az a változó,
-> amelyik a legtöbb fennmaradó varianciát magyarázza meg, hozzáadódik a
-> modellhez, és ha hozzájárul a jósló erejéhez, akkor meg is lesz
-> tartva. Ezután egy másik független változó következik.
->
-> Az R programnak el kell döntenie, hogy mikor áll le független változók
-> hozzáadásával, és ezt az Akaike információs kritérium (AIC) alapján
-> teszi meg (minél alacsonyabb az AIC értéke, annál jobb a modell). Egy
-> független változót akkor tartunk meg, hogyha az javítja, azaz
-> csökkenti az AIC értékét. Hogyha már nincs olyan változó ami csökkenti
-> az AIC értékét, akkor a modell elkészült.
->
-> A **hátrafele történő** módszer az ellentétje az előrefelének abban az
-> értelemben, hogy a program először belerakja az összes változót, és
-> utána megnézi, hogy lemegy-e az AIC, ha kivesz egyesével változókat.
-> Hogyha egy változót eltávolít, akkor a fennmaradó változók
-> hozzájárulása kiértékelődik, és a folyamat folytatódik, ameddig egy
-> változó eltávolítása az AIC emelkedését nem eredményezi.
->
-> Az **mindkét irányba haladó módszer** úgy indul, mint az előrefelé
-> irányuló, azzal a különbséggel, hogy minden egyes alkalommal, amikor
-> egy változót hozzáad, egy eltávolítási tesztet végez el, hogy
-> megtalálhassa a legkevésbé hasznos független változót. Így
-> folyamatosan újravizsgálja a regressziós egyenletet, hogy találjon
-> felesleges változókat, amiket el lehet távolítani.
->
-> Ha lépésről lépésre történő módszer mellett döntünk, akkor a hátrafelé
-> történő módszer előnyösebb az előrefele történőnél. Ez az elfojtó
-> hatások (suppressor effects) miatt van, ami akkor történik meg, ha egy
-> független változónak van hatása, de csak ha a másik változó állandó
-> (konstans). Az előrefele történő kiválasztás során nagyobb eséllyel
-> hagy ki változókat, amelyek szupresszor hatásban vannak. Így ez
-> nagyobb eséllyel követ el II-es típusú hibát (azaz kihagy egy
-> változót, ami ténylegesen bejósolja a függő változót).
+Ebben a regressziós módszerben a független változók sorrendjét pusztán
+matematikai szempontok alapján döntjük el. Ennek a sorrendnek három
+fajtája lehet: előrefele történő (forward) hátrafele történő
+(backward) és mindkét irányba történő (both).
 
--   Jó ismerni ezeket, de nem ajánlottak!
+Az **előre fele történő** regresszió során a modellbe először a
+konstans (b0) kerül be. Ezután a program megkeresi azt a független
+változót ami a legjobban bejósolja a függő változót. Ezt úgy teszi
+meg, hogy azt választja ki, amelyiknek a legnagyobb korrelációja van a
+függő változóval. Ha ez a változó ténylegesen fejleszti a modell
+képességét, hogy bejósolja a függő változót, akkor ezt a független
+változót megtartja, és keres egy második változót. A feltétele ennek a
+változónak a kiválasztására, hogy ennek legyen a legnagyobb
+fél-parciális (semi partial) korrelációja a függő változóval.
+Képzeljük el, hogy az első változó 40%-át megmagyarázza a függő
+változó varianciájának, tehát 60% még megmagyarázásra vár. A program
+azt a változót keresi meg, amelyik a legjobban meg tudja magyarázni a
+fennmaradó 60%-ot, a meglévő 40-ben már nem érdekelt. Így ez a
+fél-parciális korreláció azt mutatja meg, hogy mennyi „új variancia"
+van megmagyarázva a második független változó által. Az a változó,
+amelyik a legtöbb fennmaradó varianciát magyarázza meg, hozzáadódik a
+modellhez, és ha hozzájárul a jósló erejéhez, akkor meg is lesz
+tartva. Ezután egy másik független változó következik.
+
+Az R programnak el kell döntenie, hogy mikor áll le független változók
+hozzáadásával, és ezt az Akaike információs kritérium (AIC) alapján
+teszi meg (minél alacsonyabb az AIC értéke, annál jobb a modell). Egy
+független változót akkor tartunk meg, hogyha az javítja, azaz
+csökkenti az AIC értékét. Hogyha már nincs olyan változó ami csökkenti
+az AIC értékét, akkor a modell elkészült.
+
+A **hátrafele történő** módszer az ellentétje az előrefelének abban az
+értelemben, hogy a program először belerakja az összes változót, és
+utána megnézi, hogy lemegy-e az AIC, ha kivesz egyesével változókat.
+Hogyha egy változót eltávolít, akkor a fennmaradó változók
+hozzájárulása kiértékelődik, és a folyamat folytatódik, ameddig egy
+változó eltávolítása az AIC emelkedését nem eredményezi.
+
+Az **mindkét irányba haladó módszer** úgy indul, mint az előrefelé
+irányuló, azzal a különbséggel, hogy minden egyes alkalommal, amikor
+egy változót hozzáad, egy eltávolítási tesztet végez el, hogy
+megtalálhassa a legkevésbé hasznos független változót. Így
+folyamatosan újravizsgálja a regressziós egyenletet, hogy találjon
+felesleges változókat, amiket el lehet távolítani.
+
+Ha lépésről lépésre történő módszer mellett döntünk, akkor a hátrafelé
+történő módszer előnyösebb az előrefele történőnél. Ez az elfojtó
+hatások (suppressor effects) miatt van, ami akkor történik meg, ha egy
+független változónak van hatása, de csak ha a másik változó állandó
+(konstans). Az előrefele történő kiválasztás során nagyobb eséllyel
+hagy ki változókat, amelyek szupresszor hatásban vannak. Így ez
+nagyobb eséllyel követ el II-es típusú hibát (azaz kihagy egy
+változót, ami ténylegesen bejósolja a függő változót).
+
+Jó ismerni ezeket, de nem ajánlottak!
 
 ```{=html}
 <!-- -->
 ```
--   ### All subsets methods 
+### All subsets methods 
 
-> A lépésről lépésre történő módszerek nagy hibája, hogy az alapján
-> dönti el egy változóról, hogy az beleillik-e egy modellbe, hogy addig
-> milyen változók vannak már a modellben. Ennél jobb módszer az all
-> subsets módszere. Ahogy a neve is mutatja, ez a módszer kipróbálja az
-> összes lehetséges kombinációját a független változóknak, hogy
-> megnézze, melyik illik a legjobban a modellbe (amit Mallow's Cp
-> statisztikája határoz meg). Ennek a módszernek a problémája, hogy
-> ahogy nő a független változók száma, úgy exponenciálisan nő a
-> lehetséges modellek száma. Szerencsére a számítógépek már nem olyan
-> lassúak mint régen, tehát ez a módszer is járható utat kínál.
+A lépésről lépésre történő módszerek nagy hibája, hogy az alapján
+dönti el egy változóról, hogy az beleillik-e egy modellbe, hogy addig
+milyen változók vannak már a modellben. Ennél jobb módszer az all
+subsets módszere. Ahogy a neve is mutatja, ez a módszer kipróbálja az
+összes lehetséges kombinációját a független változóknak, hogy
+megnézze, melyik illik a legjobban a modellbe (amit Mallow's Cp
+statisztikája határoz meg). Ennek a módszernek a problémája, hogy
+ahogy nő a független változók száma, úgy exponenciálisan nő a
+lehetséges modellek száma. Szerencsére a számítógépek már nem olyan
+lassúak mint régen, tehát ez a módszer is járható utat kínál.
 
--   ### A megfelelő módszer kiválasztása
+### A megfelelő módszer kiválasztása
 
-> Vannak bizonyos megfontolások, amelyek szem előtt tartandók. Ha
-> rendelkezésre áll biztos szakirodalmi háttér, érdemes támaszkodni rá,
-> amikor a változókról vagy azok sorrendjéről döntünk. Az első
-> (konfirmatív) vizsgálatot követően a statisztikailag elhanyagolható
-> változókat kihagyhatjuk. Fontos továbbá, hogy ne vigyünk be túl sok
-> változót (regressziós együttható!), és szakirodalmilag kellően
-> megalapozott változókkal dolgozzunk.
+Vannak bizonyos megfontolások, amelyek szem előtt tartandók. Ha
+rendelkezésre áll biztos szakirodalmi háttér, érdemes támaszkodni rá,
+amikor a változókról vagy azok sorrendjéről döntünk. Az első
+(konfirmatív) vizsgálatot követően a statisztikailag elhanyagolható
+változókat kihagyhatjuk. Fontos továbbá, hogy ne vigyünk be túl sok
+változót (regressziós együttható!), és szakirodalmilag kellően
+megalapozott változókkal dolgozzunk.
 
 ## AIC (Akaike Information Criteria) és BIC (Bayesian Information Criteria)
 
@@ -596,7 +341,7 @@ Akaike Information Criteria (AIC) egy alternatív illeszkedési mutató,
 ami számításba veszi a modellben lévő prediktorok számát. Az AIC
 egyenlete a következő:
 
-AIC = n ln(SSE/n) + 2k
+AIC = n*ln(SSE/n) + 2k
 
 ahol az n a modell eseteinek száma, az ln a természetes logaritmus, az
 SSE (Sum of Square Errors) a hibák négyzetének összege, a k pedig a
@@ -689,14 +434,14 @@ másik mintára alkalmazva milyen jó előrejelzéseket ad. A
 keresztvalidálásnak két módszere van: (1) igazított R^2^, (2) adatok
 szétválasztása.
 
--   **Igazított (adjusted) R^2^**
+-   **Igazított (adjusted) R^2**
 
 Ez az érték az ún. "shrinkage"-et mutatja, azaz hogy a modell prediktív
 ereje mennyire csökkent a másik mintára alkalmazva.
 
-Amíg a sima R^2^ azt mondja meg, hogy az adott mintára illesztett
+Amíg a sima R^2 azt mondja meg, hogy az adott mintára illesztett
 modellünk az össz varianciából (reziduálisokból) mennyit magyaráz meg,
-az igazított R^2^ azt mutatja, hogy mennyi varianciát magyarázna, ha a
+az igazított R^2 azt mutatja, hogy mennyi varianciát magyarázna, ha a
 modellt abból a populációból kaptuk volna, amiből a mintát vettük.
 
 -   **Adatok szétválasztása**
@@ -715,20 +460,20 @@ Forrás: Andy Field
 A két leghasználhatóbb hüvelykujjszabály a regresszióelemzéshez gyűjtött
 mintaméret meghatárotására a következő:
 
--   **Prediktorok száma alapján**
+**Prediktorok száma alapján**
 
 Ha a regressziós modellünkben *k* darab prediktorunk van, akkor 50 +
 8*k* vagy 104+*k* adatot gyűjtsünk. Azt az egyenletet alkalmazzuk,
 amelyik alapján nagyobb mintaméret jön ki.
 
--   **Hatásméret alapján**
+**Hatásméret alapján**
 
 Ha nagy hatást akarunk kimutatni, akkor 80 fő elég a mintánkba (20
 predikor változóig). Ha közepes hatást várunk, akkor 200 fő elég (20
 prediktor változóig). Ha a mérni kívánt hatás kicsi, akkor 6 predikor
 változóig 600 fő elegendő, hogy azt kimutassuk. A hatásméretekről
 bővebben a [[Metaanalízis
-vademecumban]{.ul}](https://docs.google.com/document/d/1k4DsNl8oCs3NPrU6Ask46qbtUPogY_lAhKViV6piT7U/edit)
+vademecumban]](https://docs.google.com/document/d/1k4DsNl8oCs3NPrU6Ask46qbtUPogY_lAhKViV6piT7U/edit)
 lehet olvasni.
 
 Forrás: Field, A., Miles, J. and Field, Z. (2012). *Discovering
@@ -742,7 +487,7 @@ kollinearitás (amikor a korreláció 1) a való életben szinte soha sem
 fordul elő, viszont valamennyi korreláció majdnem mindig van a prediktor
 változók között.
 
--   **Megbízhatatlan b**
+**Megbízhatatlan b**
 
 A kollinearitással együtt nő a b regressziós együttható standard hibája,
 ami azt jelenti, hogy különböző mintákban jelentősen eltérő értékeket
@@ -750,7 +495,7 @@ vehet fel. Azért megbízhatatlan, mert általa a mintánk kevéssé
 megbízhatóan reprezentálja a populációt. Ebből adódik, hogy a modellünk
 nem konzisztensen fogja bejósolni az eredményeket.
 
--   **Az R mértékét csökkenti**
+**Az R mértékét csökkenti**
 
 Ha kettő vagy több prediktor változó korrelál egymással, az egyben azt
 is jelenti, hogy osztoznak a megmagyarázott variancia egy bizonyos
@@ -762,7 +507,7 @@ megmagyarázzák, de ha csak azt nézzük, hogy a szülői szigor mennyire
 játszik közre, azt tapasztalhatjuk, hogy a varianciának csak a 2%-át
 magyarázza. Ilyen esetben a változó **egyedi varianciája** alacsony.
 
--   **A prediktorok fontossága**
+**A prediktorok fontossága**
 
 Multikollinearitás esetén a korreláló változók közül nem lehet
 megállapítani, melyik játszik jelentős szerepet. Az előző példára
@@ -770,7 +515,7 @@ visszatérve, nem tudjuk megmondani, hogy a szülői szigor vagy az
 iskolában eltöltött évek száma külön-külön mennyire jelentős
 előrejelzője a depressziónak.
 
--   **VIF/ tolerance**
+**VIF/ tolerance**
 
 Ahelyett, hogy korrelációkat számolnánk a prediktor változókra (ami sok
 prediktor esetén követhetetlen), a "variance inflation factor"-t
@@ -801,15 +546,15 @@ Cook's D \> 1, akkor a megfigyelés meghatározó.
 
 Többváltozós regresszió:
 
-[[https://gallery.shinyapps.io/multi_regressio]{.ul}](https://gallery.shinyapps.io/multi_regression/)
+[[https://gallery.shinyapps.io/multi_regressio]](https://gallery.shinyapps.io/multi_regression/)
 
 Multikollinearitás hatása a regresszió eredményére:
 
-[n/<https://gallery.shinyapps.io/collinearity/>]{.ul}
+[n/<https://gallery.shinyapps.io/collinearity/>]
 
 Influence analysis:
 
-[[https://omaymas.shinyapps.io/Influence_Analysis/]{.ul}](https://omaymas.shinyapps.io/Influence_Analysis/)
+[[https://omaymas.shinyapps.io/Influence_Analysis/]](https://omaymas.shinyapps.io/Influence_Analysis/)
 
 ## Regresszió--elemzés (Regression diagnostics)
 
@@ -828,7 +573,7 @@ Reziduálisok: a modellben lévő hibákat reprezentálják. A regresszió
 grafikus ábrázolásakor reziduálsok alatt a regressziós egyenes és az
 adatpont távolságát értjük.
 
-![](media/image27.gif){width="2.901042213473316in"
+![](images/image30.gif){width="2.901042213473316in"
 height="1.8468842957130358in"}
 
 Minél nagyobb a reziduálisok értéke, annál rosszabbul reprezentálja az
@@ -942,13 +687,13 @@ Lineáris regresszió esetén valamilyen független változó (pl. szakmában
 eltöltött évek) segítségével akarunk egy függő változót (pl. fizetés)
 bejósolni, a kettő közötti összefüggésre építünk egy lineáris modellt.
 Ez a legegyszerűbb esetben, ahol egy változóval akarunk prediktálni, két
-számmal írható le, az intercepttel (*β*​0) és egy együtthatóval (*β*​1).
+számmal írható le, az intercepttel (*β*0) és egy együtthatóval (*β*1).
 
-​*salary*​*i*​​​\^​​=*β*​0​​+*β*​1​​∗*experience*​*i*​​
+*salary**i*=*β*0+*β*1∗*experience**i*
 
 Ebben az egyszerű modellben feltételezzük, hogy a minta elemei között ez
-a két szám fix, tehát a kezdő fizetés (intercept, *β*​0), és a
-fizetésnövekedés mértéke (slope/meredekség, *β*​1) minden egyes embernél
+a két szám fix, tehát a kezdő fizetés (intercept, *β*0), és a
+fizetésnövekedés mértéke (slope/meredekség, *β*1) minden egyes embernél
 ugyanaz lesz. Erről intuitívan is érezhetjük, hogy egy túl erős
 feltételezés, ami a modellünk pontosságát hátrányosan érinti. Egy mérnök
 kezdő fizetése és fizetésének növekedésének üteme is jelentősen el fog
@@ -963,11 +708,11 @@ Az egyik módszer, amivel ezt megtehetjük, ha figyelembe vesszük, hogy a
 különböző csoportok (mérnökök, tanárok, buszsofőrök, stb) különböző
 kezdő fizetéssel rendelkeznek, vagyis megengedjük, hogy az egyes
 csoportoknak csoportonként különböző interceptjük legyen, azonos
-meredekség (*β*​1) mellett. A fix *β*​0 konstans helyett tehát
+meredekség (*β*1) mellett. A fix *β*0 konstans helyett tehát
 csoporttagságtól függő konstansokat keresünk. A regressziós egyenletünk
 így a következőre változik:
 
-*salary*​*i*​​​\^​​=*β*​0*j*\[*i*\]​​+*β*​1​​∗*experience*​*i*​​
+*salary**i*=*β*0*j*\[*i*\]+*β*1∗*experience**i*
 
 Ez már érezhetően jobban megfogja a vizsgált összefüggés lényegét, de
 még mindig érezzük, hogy egy utcaseprő fizetése nem fog olyan ütemben
@@ -978,11 +723,11 @@ nőni, mint egy programozóé.
 Ebben az esetben hasonló dolgot csinálunk, csak itt a kezdő fizetések
 variálása helyett a fizetésnövekedés mértéke közötti különbségekben
 próbáljuk a csoportok közötti különbségeket megfogni. Tehát egy fix
-intercept (*β*​0) mellett keresünk csoportonként olyan meredekségeket,
+intercept (*β*0) mellett keresünk csoportonként olyan meredekségeket,
 amik az adott csoportot a legjobban jellemzik. Így kapjuk a következő
 egyenletet:
 
-​*salary*​*i*​​​\^​​=*β*​0​​+*β*​1*j*\[*i*\]​​∗*experience*​*i*​​
+*salary**i*=*β*0+*β*1*j*\[*i*\]∗*experience**i*
 
 **Random meredekség és intercept**
 
@@ -990,7 +735,7 @@ A két módszer kombinálásával érhetjük el a lehető legoptimálisabb
 modellt, ahol az intercept és a meredekség is az adott csoportra lesz
 jellemző.
 
-*salary*​*i*​​​\^​​=*β*​0*j*\[*i*\]​​+*β*​1*j*\[*i*\]​​∗*experience*​*i*​​
+*salary**i*=*β*0*j*\[*i*\]+*β*1*j*\[*i*\]∗*experience**i*
 
 Nagyon ajánlott interaktív weboldal:
 http://mfviz.com/hierarchical-models/
@@ -1018,7 +763,7 @@ random effects coefficients)
 
 A random modellek bevezetése (képlet magyarázat):
 
-1, [random intercept:]{.ul}
+1, [random intercept:]
 
 Adjunk hozzá egy olyan u1j komponenst az intercept-hez, ami a
 variabilitását méri. Ekkor az intercept a korábban megszokott b0 helyett
@@ -1030,7 +775,7 @@ egyenlet:
 
 Yij=(b0+u0j)+b1Xij+eij
 
-2, [random regressziós együttható]{.ul}:
+2, [random regressziós együttható]:
 
 Az előző esethez hasonlóan jelölje most az együttható variabilitását
 u1j. Ekkor az együttható korábban megszokott b1 helyett a (b1+u1j)
@@ -1038,7 +783,7 @@ alakot ölti. Ekkor a regressziós egyenlet:
 
 Yij=b0+(b1+u1j)X1i+eij
 
-3, [random intercept és regressziós együttható:]{.ul}
+3, [random intercept és regressziós együttható:]
 
 Az 1, és 2, eset kombinációja alapján a regressziós egyenlet n db random
 prediktorváltozó esetén:
@@ -1061,7 +806,7 @@ A többszintű regressziónál 3 különböző módszert alkalmazhatunk a modell
 illeszkedésének, illetve az illeszkedés javulásának mérésére: AIC, BIC
 és a Khí-négyzet likelihood ratio. Mindhárom módszer a -2LL -t használja
 fel az egyenletében. A -2LL magyarázata [[itt
-található]{.ul}](#a-modell-értékelése-8.3.2).
+található]](#a-modell-értékelése-8.3.2).
 
 Az AIC és a BIC önmagukban nem értelmezhetőek... folytatni.
 
@@ -1085,7 +830,7 @@ milyen jól illeszkedik az adatokhoz (pl AIC vagy BIC).
 
 A variancia-kovariancia mátrix általános alakja:
 
-![](media/image5.png){width="3.0520833333333335in" height="1.09375in"}
+![](images/image19.png){width="3.0520833333333335in" height="1.09375in"}
 
 Itt A, B és C különböző változók (regresszió esetén prediktorok).
 Látható, hogy a mátrix minden esetben négyzetes és szimmetrikus. A
@@ -1107,14 +852,16 @@ random hatások varianciájáról azt feltételezzük, hogy ugyanolyanok
 varianciájával. Néha függetlenségi modellnek is hívják.\
 ![](media/image19.png){width="0.9375in" height="0.90625in"}
 
-### Diagonális: ![](media/image14.png){width="1.3333333333333333in" height="1.0416666666666667in"}
+### Diagonális: 
+![](images/image26.png){width="1.3333333333333333in" height="1.0416666666666667in"}
 
 Ez a modell ugyanolyan mint a variancia komponensek modellje azzal a
 különbséggel, hogy a variancia komponenseket heterogénnek tételezzük
 fel, ezért mások a komponensek az átlóban. De ez is azt feltételezi,
 hogy függetlenek és ezért a kovarianciák egyenlőek 0-val.
 
-### AR(1): ![](media/image28.png){width="1.2916666666666667in" height="1.0416666666666667in"}
+### AR(1): 
+![](images/image10.png){width="1.2916666666666667in" height="1.0416666666666667in"}
 
 Ez a jelölés az elsőrendű autoregresszív struktúra kifejezést rövidíti.
 Pongyolán fogalmazva ez azt jelenti, hogy a varianciák kapcsolata
@@ -1127,15 +874,15 @@ azt feltételezzük, hogy homogének de ennek a struktúrának van egy
 változata ahol heterogén. Ezt legtöbbször ismételt elrendezésű adatoknál
 használjuk.
 
-### Strukturálatlan: ![](media/image17.png){width="1.5729166666666667in" height="1.0520833333333333in"}
+### Strukturálatlan: 
+![](images/image15.png){width="1.5729166666666667in" height="1.0520833333333333in"}
 
 Ez a kovariancia struktúra teljesen általános. A kovarianciákról azt
 feltételezzük, hogy teljesen bejósolhatatlanok, nem követnek semmilyen
 szisztematikus mintát.
 
-## 
 
-Források:
+###Források:
 
 [[http://statstudent.tumblr.com/post/108699142671/simple-linear-regression-methods-ii-week-of]{.ul}](http://statstudent.tumblr.com/post/108699142671/simple-linear-regression-methods-ii-week-of)
 
@@ -1349,7 +1096,7 @@ kíváncsiak, hanem az Y változó valószínűségére, azaz P(Y)-ra.
 
 Egyetlen prediktor esetén így néz ki a logisztikus regresszió egyenlete:
 
-![](media/image8.png){width="2.375in" height="0.8333333333333334in"}
+![](images/image8.png){width="2.375in" height="0.8333333333333334in"}
 
 Az egyenletben P(Y) az outcome valószínűségét jelöli, "e" a természetes
 logaritmus alapja (a logaritmikus transzformáció miatt), és a zárójelben
@@ -1358,7 +1105,7 @@ prediktor változó és az ahhoz tartozó béta.
 
 Ez több prediktorral kiegészítve így néz ki:
 
-![](media/image2.png){width="3.5in" height="0.9375in"}
+![](images/image22.png){width="3.5in" height="0.9375in"}
 
 A lényeg az, hogy az "e" hatványkitevőjeként most már egy olyan egyenlet
 szerepel, amit a többváltozós regressziónál írunk fel.
@@ -1372,7 +1119,7 @@ modellek illeszkedését is a tényleges és a modell által jósolt értékek
 összehasonlításával mérhetjük. A logisztikus regresszióban ezt
 log-likelihood statisztikának hívjuk, és az egyenlete a következő:
 
-![](media/image4.png){width="5.895833333333333in"
+![](images/image12.png){width="5.895833333333333in"
 height="0.4270833333333333in"}
 
 Az Y~i~ az i-edik eset tényleges értéke, ami lehet 0, azaz nem történt
@@ -1407,7 +1154,7 @@ baseline modell és az új modellünk összehasonlításához kivonjuk a
 baseline modell "-2LL" értékéből az új modell "-2LL" értékét, amivel
 megkapjuk a likelihood ratio-t.
 
-## Assessing the model: R and R^2^ (8.3.3.)
+## Assessing the model: R and R^2 (8.3.3.)
 
 R-statistics/ R-statisztika:. Parciális korreláció a kimeneti változó és
 az egyes prediktorváltozók között. Értékei -1 és 1 között mozognak.
@@ -1416,7 +1163,7 @@ arányosság van, negatív érték esetén fordított arányosság. Ha egy
 változónak kicsi az R értéke, csak kis mértékben járul hozzá az
 eredményhez.
 
-R egyenlete:![](media/image22.png){width="5.895833333333333in"
+R egyenlete:![](images/image27.png){width="5.895833333333333in"
 height="0.4895833333333333in"}
 
 ahol -2LL: az alapmodelltől való eltérést jelenti, z^2^: Wald
@@ -1443,13 +1190,13 @@ kimenetelt.
 
 Cox és Snell képlete :
 
-![](media/image9.png){width="5.895833333333333in"
+![](images/image9.png){width="5.895833333333333in"
 height="0.5416666666666666in"}
 
 Ez viszont soha nem fogja elérni maximumot (1-et), ezért Nagelkerke
 átírta:
 
-![](media/image21.png){width="5.895833333333333in" height="0.6875in"}
+![](images/image28.png){width="5.895833333333333in" height="0.6875in"}
 
 ahol n a mintaméretet jelöli. Ezek elviekben ugyanazt számolják: a
 lineáris regresszióban használatos az R^2^ --hez hasonlóan a modell
@@ -1575,7 +1322,7 @@ prediktorváltozót akarunk túl kevés adatra illeszteni. Ezt a problémát
 úgy oldhatjuk meg, hogy több adatot gyűjtünk, de néha a választ egy
 egyszerűbb modell alkalmazásával is megtalálhatjuk.
 
-![](media/image18.jpg){width="4.776042213473316in"
+![](images/image21.jpg){width="4.776042213473316in"
 height="3.3857884951881014in"}
 
 Példa teljes szaparációra: a 3 görbe azt jelzi, hogy nem dönthető el
@@ -1592,7 +1339,7 @@ ratio is. Ha pedig a konstanst is közlöd, az olvasó az egész regressziós
 modellt újraépítheti, ha szeretné. Érdemes a nem szignifikáns változókat
 is közölni, hiszen ez is értékes információkkal szolgálhat.
 
-![](media/image20.png){width="4.947916666666667in" height="1.3125in"}
+![](images/image25.png){width="4.947916666666667in" height="1.3125in"}
 
 R2=.06 (Hosmer-Lemeshow), .08 (Cox-Snell), .11 (Nagelkerke). Modell
 χ2(1)=9.93, p\<.01 \* p\<.01
@@ -1603,11 +1350,11 @@ teszünk 0-át ha az érték amúgy sem vehet fel 1-nél nagyobb értékeket
 
 Forrás: Andy Field
 
-[[https://www.r-bloggers.com/15-types-of-regression-you-should-know/]{.ul}](https://www.r-bloggers.com/15-types-of-regression-you-should-know/)
+[[https://www.r-bloggers.com/15-types-of-regression-you-should-know/]](https://www.r-bloggers.com/15-types-of-regression-you-should-know/)
 
-<!--chapter:end:01_chapter.Rmd-->
+<!--chapter:end:01-chapter.Rmd-->
 
-# FOGALOMTÁR A BAYES STATISZTIKÁHOZ
+# FOGALOMTÁR A BAYES STATISZTIKÁHOZ {-}
 
 ## Bayesiánus valószínűség (szubjektív valószínűség)
 
@@ -1624,9 +1371,9 @@ valószínűséggel]{.ul}](https://en.wikipedia.org/wiki/Frequentist_probability
 szemben ez a valószínűség nem arra vonatkozik, hogy a történelemben hány
 százalék volt az elbukott vizsgák aránya.
 
-[[Wikipédia]{.ul}](https://en.wikipedia.org/wiki/Bayesian_probability)
+[[Wikipédia]](https://en.wikipedia.org/wiki/Bayesian_probability)
 
-[[Investopedia]{.ul}](http://www.investopedia.com/terms/s/subjective_probability.asp)
+[[Investopedia]](http://www.investopedia.com/terms/s/subjective_probability.asp)
 
 ## Valószínűségszámítási alapfogalmak
 
@@ -1674,14 +1421,14 @@ p(négyest húzol\| piros kártyát húzol)= 2/26= 1/13.
 
 Egy másik példa a valószínűség típusokra:
 
-![](media/image26.png){width="6.5in" height="3.6527777777777777in"}
+![](images/image31.png){width="6.5in" height="3.6527777777777777in"}
 
-[[Forrás]{.ul}](https://www.slideshare.net/eugeneyan/statistical-inference-probability-and-distribution)
+[[Forrás]](https://www.slideshare.net/eugeneyan/statistical-inference-probability-and-distribution)
 
-### Valószínűség típusok ([[http://sites.nicholas.duke.edu/statsreview/probability/jmc/]{.ul}](http://sites.nicholas.duke.edu/statsreview/probability/jmc/)) 
+### Valószínűség típusok ([[http://sites.nicholas.duke.edu/statsreview/probability/jmc/]](http://sites.nicholas.duke.edu/statsreview/probability/jmc/)) 
 
 Egy világos magyarázata a feltételes valószínűségnek
-[[itt]{.ul}](https://learnbayes.org/index.php?option=com_content&view=article&id=69:condprob&catid=79&Itemid=479)
+[[itt]](https://learnbayes.org/index.php?option=com_content&view=article&id=69:condprob&catid=79&Itemid=479)
 található.
 
 ## Bayes tétel (Bayes' theorem, Bayes' rule, Bayes' law) 
@@ -1692,7 +1439,7 @@ A Bayes-tétel egy esemény előfordulásának valószínűségét írja le, az 
 befolyásoló tényezők ismeretének fényében. Megmutatja, hogyan alakítsuk
 át hipotéziseinket megfigyeléseink (az adatok) alapján.
 
-![](media/image24.png){width="2.1041666666666665in"
+![](images/image29.png){width="2.1041666666666665in"
 height="0.4791666666666667in"}
 
 P ( A ) = A előfordulásának valószínűsége, semmilyen más eseményre
@@ -1701,9 +1448,9 @@ tekintet nélkül, önmagában.
 P ( B ) = B előfordulásának valószínűsége, semmilyen más eseményre
 tekintet nélkül, önmagában.
 
-P (A I B ) = A megfigyelésének valószínűsége, ha B jelen van.
+P (A | B ) = A megfigyelésének valószínűsége, ha B jelen van.
 
-P ( B I A ) = B megfigyelésének valószínűsége, ha A jelen van.
+P ( B | A ) = B megfigyelésének valószínűsége, ha A jelen van.
 
 A Bayes-tétel alapján, ahhoz, hogy meghatározzuk A előfordulásának
 valószínűségét B jelenlétében \[P (A I B )\], szükségünk van B
@@ -1735,17 +1482,17 @@ P(A\|B) = (0.8 \* 0.1)/0.5 = 0.16
 Kiderítettük, hogy az adataink alapján annak a valószínűsége, hogy
 valaki, aki rendszeresen dohányzik, rákos 16%.
 
-[[Wikipedia]{.ul}](https://en.wikipedia.org/wiki/Bayes%27_theorem)
+[[Wikipedia]](https://en.wikipedia.org/wiki/Bayes%27_theorem)
 
-[[Brilliant.org]{.ul}](https://brilliant.org/wiki/bayes-theorem/)
+[[Brilliant.org]](https://brilliant.org/wiki/bayes-theorem/)
 
-[[Learnbayes.org]{.ul}](https://learnbayes.org/index.php?option=com_content&view=article&id=70:bayes-theorem&catid=79&Itemid=479)
+[[Learnbayes.org]](https://learnbayes.org/index.php?option=com_content&view=article&id=70:bayes-theorem&catid=79&Itemid=479)
 
-[[Betterexplained.org]{.ul}](https://betterexplained.com/articles/an-intuitive-and-short-explanation-of-bayes-theorem/)
+[[Betterexplained.org]](https://betterexplained.com/articles/an-intuitive-and-short-explanation-of-bayes-theorem/)
 
 ## Bayesiánus következtetés (Bayesian inference)
 
-[[Wikipedia]{.ul}](https://en.wikipedia.org/wiki/Bayesian_inference)
+[[Wikipedia]](https://en.wikipedia.org/wiki/Bayesian_inference)
 
 A Bayesiánus következtetés során a hipotéziseink valószínűségét
 alakítjuk át ahogy egyre több információ és adat kerül a birtokunkba
@@ -1764,22 +1511,22 @@ információ a rendelkezésünkre áll, az előzetes elképzeléseinket
 megerősítheti, meggyengítheti, de akár változatlanul is hagyhatja.
 
 A Bayesiánus következtetésben előzetes hiedelmeinknek
-([[prior]{.ul}](https://docs.google.com/document/d/1tCfZkxueFzbxmvtmTzBkmOuwAAHg1_Q33zj_h6qcvrk/edit?mode=html#heading=h.pk3h60h007dk))
+([[prior]](https://docs.google.com/document/d/1tCfZkxueFzbxmvtmTzBkmOuwAAHg1_Q33zj_h6qcvrk/edit?mode=html#heading=h.pk3h60h007dk))
 evidencia fényében történő újraértékelését végezzük el. Az adatok
 önmagukban még nem szolgálnak evidenciaként, hanem mindig az adott
 elképzelés/hipotézis viszonyában értelmezhetőek. Részletesebb
-magyarázatért lásd az [[evidenciáról]{.ul}](#evidencia), illetve a
-[[likelihoodról]{.ul}](#likelihood) szóló részt. Előzetes
+magyarázatért lásd az [[evidenciáról]](#evidencia), illetve a
+[[likelihoodról]](#likelihood) szóló részt. Előzetes
 elképzeléseinkből utólagos elképzeléseinkig
-([[posterior]{.ul}](#posterior-valószínűségek)) az adatokon keresztül
-[[Bayes tételét]{.ul}](#bayes-tétel-bayes-theorem-bayes-rule-bayes-law)
+([[posterior]](#posterior-valószínűségek)) az adatokon keresztül
+[[Bayes tételét]](#bayes-tétel-bayes-theorem-bayes-rule-bayes-law)
 alkalmazva jutunk el.
 
-![bayesian_update_04.png](media/image6.png){width="5.833333333333333in"
+![](images/image17.png){width="5.833333333333333in"
 height="4.375in"}
 
 Az
-[[ábrán]{.ul}](http://www0.cs.ucl.ac.uk/staff/gridgway/kalman/bayesian_update/bayesian_update.html)
+[[ábrán]](http://www0.cs.ucl.ac.uk/staff/gridgway/kalman/bayesian_update/bayesian_update.html)
 a prior eloszlás, a poszterior eloszlás, a kapott adatok és a likelihood
 függvény látható egymás viszonyában.
 
@@ -1794,9 +1541,9 @@ likelihood-ot használunk, ami annak a mértékét mutatja meg, hogy a
 kapott adatok mennyire valószínűek egy-egy adott hipotézis alatt. Más
 szóval az adatok alapján kapunk egy képet arról, hogy mely hipotézisek
 magyarázzák jobban az adatainkat. Részetesebb leírásért lásd a
-[[Likelihood]{.ul}](#likelihood) és a [[Bayes
-faktor]{.ul}](#bayes-faktor-b-vagy-bf) számításához használt
-[[Marginális likelihood]{.ul}](#marginális-likelihood) bekezdést.
+[[Likelihood]](#likelihood) és a [[Bayes
+faktor]](#bayes-faktor-b-vagy-bf) számításához használt
+[[Marginális likelihood]](#marginális-likelihood) bekezdést.
 
 ##  Hipotézis
 
@@ -1815,7 +1562,7 @@ Maguk a hipotézisek lehetnek teljesen bizonytalanok. Egy teljesen
 bizonytalan hipotézisnél nem tudjuk, hogy melyik értéket részesítsük
 előnyben, minden értékhez ugyanakkora valószínűségi érték tartozik (ezt
 hívják [[uniform
-eloszlásnak]{.ul}](https://en.wikipedia.org/wiki/Uniform_distribution_(continuous))).
+eloszlásnak]](https://en.wikipedia.org/wiki/Uniform_distribution_(continuous))).
 A hipotéziseink lehetnek kevésbé specifikusabbak, amikor ugyan egy
 értéket előnyben részesítünk a többivel szemben, de a valószínűségek
 viszonylag egyenletesen oszlanak el. Egy specifikus hipotézis esetén egy
@@ -1831,7 +1578,7 @@ Számszerűsíthetjük, hogy az egyes hipotézisek (H) mennyire prediktálják
 a lehetséges adatokat p(D \| H), ahol D az adatokat jelöli. Ez a
 likelihood (Morey et al., 2016). A hipotézis általában egy elképzelés
 arról, hogy bizonyos mennyiség/mennyiségek eloszlása milyen a
-populációban (lásd. [[Prior]{.ul}](#prior)).
+populációban (lásd. [[Prior]](#prior)).
 
 ## Sűrűségfüggvény (Probability Density Function, PDF)
 
@@ -1839,13 +1586,13 @@ Egy folyamatos változónak egy olyan eloszlása, ahol az X tengely minden
 értékéhez megfelelő valószínűségi érték tartozik. A görbe alatti terület
 mindig 1.
 
-![](media/image11.png){width="4.1875in" height="2.0208333333333335in"}
+![](images/image20.png){width="4.1875in" height="2.0208333333333335in"}
 
 ## Valószínűségi tömegfüggvény (probability mass function, PMF)
 
 A sűrűségfüggvény párja diszkrét valószínűségi változókra.
 
-![](media/image7.png){width="3.557292213473316in"
+![](images/image16.png){width="3.557292213473316in"
 height="1.6664785651793526in"}
 
 ## Prior
@@ -1868,42 +1615,33 @@ eső valószínűségeket rendel.\
 A Bayes faktorral már összehasonlítható a két hipotézis. (lásd.
 Likelihood, Bayes faktor)
 
-> **2. Verzió (számítógépes)**
->
-> Bayesiánus analízishez szükséges definiálni, hogy mekkora hatást
-> várnánk ha a H1 igaz. A *BayesFactor* csomag a *standardizált hatás
-> méret* (δ) lehetséges értékit egy eloszlásban adja meg.
->
-> 3 különböző skálájú beépített prior van a csomagban (ld ábra):
->
-> **Medium** = 0.71
->
-> **Wide =** 1
->
-> **Ultrawide** = 1.41
->
-> Ha nem állítjuk át, akkor a medium-mal számol.
->
-> Minél kisebb a prior skálája, annál inkább hasonlít a H~1~ a H~0~-ra
-> (és a B közelít az 1-hez)
->
-> Minél nagyobb a prior skálája, a B annál inkább favorizálja a H~0~-t.
-> ([[Morey
-> blog]{.ul}](http://bayesfactor.blogspot.hu/2014/02/bayes-factor-t-tests-part-2-two-sample.html))
->
-> Lehet specifikus priorokat is megadni (ha lehet, mindig jobb, ha így
-> járunk el). Bár gyakran felhozzák a kritikusok, de a specifikációk nem
-> tudják nagyon torzítani a kapott képet. Pl. az alábbi ábra A. részén 3
-> sikerességi becslés szerepel, mint prior, a B. ábra pedig azt mutatja,
-> hogy már 20 próba esetén is a posterior-ok elég hasonlóan néznek ki. A
-> **Bayesian Updating** lényege, hogy az adatok függvényében az
-> elképzeléseink mindig konvergálni és pontosítódni fognak. Ugyanakkor
-> minden adat csak két elképzelés viszonyáról tud valamit állítani.
+**2. Verzió (számítógépes)**
+Bayesiánus analízishez szükséges definiálni, hogy mekkora hatást
+várnánk ha a H1 igaz. A *BayesFactor* csomag a *standardizált hatás
+méret* (δ) lehetséges értékit egy eloszlásban adja meg.
+3 különböző skálájú beépített prior van a csomagban (ld ábra):
+**Medium** = 0.71
+**Wide =** 1
+**Ultrawide** = 1.41
+Ha nem állítjuk át, akkor a medium-mal számol.
+Minél kisebb a prior skálája, annál inkább hasonlít a H~1~ a H~0~-ra
+(és a B közelít az 1-hez)
+Minél nagyobb a prior skálája, a B annál inkább favorizálja a H~0~-t.
+([[Morey
+blog]](http://bayesfactor.blogspot.hu/2014/02/bayes-factor-t-tests-part-2-two-sample.html))
+Lehet specifikus priorokat is megadni (ha lehet, mindig jobb, ha így
+járunk el). Bár gyakran felhozzák a kritikusok, de a specifikációk nem
+tudják nagyon torzítani a kapott képet. Pl. az alábbi ábra A. részén 3
+sikerességi becslés szerepel, mint prior, a B. ábra pedig azt mutatja,
+hogy már 20 próba esetén is a posterior-ok elég hasonlóan néznek ki. A
+**Bayesian Updating** lényege, hogy az adatok függvényében az
+elképzeléseink mindig konvergálni és pontosítódni fognak. Ugyanakkor
+minden adat csak két elképzelés viszonyáról tud valamit állítani.
 
-[[Wikipedia]{.ul}](https://en.wikipedia.org/wiki/Prior_probability)
+[[Wikipedia]](https://en.wikipedia.org/wiki/Prior_probability)
 
 [[Gelman cikk a
-priorhoz]{.ul}](http://www.stat.columbia.edu/~gelman/research/published/p039-_o.pdf)
+priorhoz]](http://www.stat.columbia.edu/~gelman/research/published/p039-_o.pdf)
 
 ## Likelihood
 
@@ -1938,7 +1676,7 @@ pénz feldobásnál 10 dobásból 6 fejet dobunk. H1 szerint a fej dobás
 valószínűsége ½, H2 szerint (trükkös pénz) 0.75. (H1-et és H2-t két pont
 jelzi). (Az ábrát konvenció szerint skáláztuk egy konstanssal, így a
 leginkább alátámasztott érték likelihoodja 1).\
-![](media/image3.png){width="4.052083333333333in"
+![](images/image7.png){width="4.052083333333333in"
 height="3.3020833333333335in"}\
 \
 A függőleges szaggatott vonal megmutatja, hogy az adatok melyik
@@ -1969,30 +1707,27 @@ közelebb eső valószínűségeket rendel.
 
 ## Marginális likelihood
 
-> ![](media/image15.png){width="2.53125in"
-> height="0.4791666666666667in"}
->
-> A marginális likelihood (másnéven integrált likelihood) egy likelihood
-> függvény. A marginális szó arra utal, hogy a $\Theta$ paraméter(ek)
-> szerint integráltuk a kifejezést, így $\Theta$"marginalizálódik"
-> (eltűnik belőle). $\Theta$~H~ a H hipotézis alatti paramétert jelenti
-> (azaz egy vektor, ami tartalmazza a hipotézisünk összes paraméterét
-> pl. Variancia, átlag stb. ). Y az adatokat tartalmazó vektor. f~H~ az
-> adatok sűrűségfüggvénye H hipotézis alatt (egyszerűbb jelöléssel
-> =P(D\|H) ). Összefoglalva a marginális likelihood tekinthető úgy mint
-> a likelihoodok folytonos átlaga, amit a P~H~ priorral/priorokkal
-> súlyozunk. Ha a prior eloszlás olyan paramétere értékeken súlyozódik,
-> amik távol esnek az adatoktól, akkor a kapcsolódó kicsi likelihood
-> értékek csökkentik az átlagot. Így azért, hogy egy modell marginális
-> likelihoodja versenyképes legyen, a prior eloszlás nem súlyozódhat
-> ésszerűtlen paraméter értékeken.
->
-> A marginális likelihoodot modell evidenciának is nevezzük és a
-> poszterior elolszás illetve a Bayes faktor kiszámításához használjuk.
->
-> [[https://en.wikipedia.org/wiki/Marginal_likelihood]{.ul}](https://en.wikipedia.org/wiki/Marginal_likelihood)
->
-> [[http://pcl.missouri.edu/sites/default/files/Rouder.bf\_.pdf]{.ul}](http://pcl.missouri.edu/sites/default/files/Rouder.bf_.pdf)
+![](images/image23.png){width="2.53125in"
+height="0.4791666666666667in"}
+A marginális likelihood (másnéven integrált likelihood) egy likelihood
+függvény. A marginális szó arra utal, hogy a $\Theta$ paraméter(ek)
+szerint integráltuk a kifejezést, így $\Theta$"marginalizálódik"
+(eltűnik belőle). $\Theta$~H~ a H hipotézis alatti paramétert jelenti
+(azaz egy vektor, ami tartalmazza a hipotézisünk összes paraméterét
+pl. Variancia, átlag stb. ). Y az adatokat tartalmazó vektor. f~H~ az
+adatok sűrűségfüggvénye H hipotézis alatt (egyszerűbb jelöléssel
+=P(D\|H) ). Összefoglalva a marginális likelihood tekinthető úgy mint
+a likelihoodok folytonos átlaga, amit a P~H~ priorral/priorokkal
+súlyozunk. Ha a prior eloszlás olyan paramétere értékeken súlyozódik,
+amik távol esnek az adatoktól, akkor a kapcsolódó kicsi likelihood
+értékek csökkentik az átlagot. Így azért, hogy egy modell marginális
+likelihoodja versenyképes legyen, a prior eloszlás nem súlyozódhat
+ésszerűtlen paraméter értékeken.
+A marginális likelihoodot modell evidenciának is nevezzük és a
+poszterior elolszás illetve a Bayes faktor kiszámításához használjuk.
+[[https://en.wikipedia.org/wiki/Marginal_likelihood]](https://en.wikipedia.org/wiki/Marginal_likelihood)
+
+[[http://pcl.missouri.edu/sites/default/files/Rouder.bf\_.pdf]{.ul}](http://pcl.missouri.edu/sites/default/files/Rouder.bf_.pdf)
 
 ## Posterior valószínűségek
 
@@ -2001,18 +1736,17 @@ Ez arra vonatkozik, hogy mi a valószínűsége a hipotéziseknek az adatok
 megmondja, hogy mennyivel valószínűbb az egyik hipotézis, mint a másik.
 A posterior eloszlás a Bayes tétel alapján:
 
-![](media/image13.png){width="2.53125in" height="0.5729166666666666in"}
+![](images/image11.png){width="2.53125in" height="0.5729166666666666in"}
 
 $\Theta$ a hipotézis (modell) paramétere. A tört nevezője a **marginális
 likelihood**. Szerepe biztosítani, hogy a posterior érvényes
 valószínűségi eloszlás legyen (azaz a területe 1 legyen). A posterior
 alakját nem befolyásolja.
 
-[[Wikipedia]{.ul}](https://en.wikipedia.org/wiki/Conjugate_prior)
+[[Wikipedia]](https://en.wikipedia.org/wiki/Conjugate_prior)
 
-[[Quora.com]{.ul}](https://www.quora.com/What-is-the-difference-between-marginal-likelihood-and-posterior)
+[[Quora.com]](https://www.quora.com/What-is-the-difference-between-marginal-likelihood-and-posterior)
 
-## 
 
 ##  Bayes faktor (B vagy BF)
 
@@ -2031,17 +1765,17 @@ másik prior (H~b~) alatt, és ezt a két számot elosztjuk egymással. A
 Bayes faktor azt számszerűsíti, hogy a legközelebbi megfigyeléskor
 melyik modell fogja valószínűbben előrejelezni az adatokat.
 
-> **Hivatalos jelölés: B = p(D\|H~a~) / p(D\|H~b~)=**
-> $$$\frac{P(\Theta{}_{1}^{}|H{a_{}^{})\ P(D|\Theta{}_{1},\ Ha{)\ d\Theta}_{1}}_{}}{P(\Theta_{2}|{H_{}^{}}_{b})\ P(D|{\Theta{}_{2},H}_{b})d\Theta{}_{2}}$
->
-> (olvasd: A Bayes faktor egyenlő annak az arányával, hogy az adatok (D)
-> mennyire valószínűek az "a" hipotézisünk (H~a~) és a "b" hipotézisünk
-> (H~b~) alatt , **Bayes faktor=marginal likelihood ratio**)
->
-> A Bayes faktor csak akkor egyezik meg a (sima) likelihood ratioval, ha
-> egzakt hipotézisekről van szó, különben az integrál formát használjuk,
-> azaz a marginális likelihoodokat (modell evidenciákat) hasonlítjuk
-> össze (**lásd. Poszterior**).
+**Hivatalos jelölés: B = p(D\|H~a~) / p(D\|H~b~)=**
+$$$\frac{P(\Theta{}_{1}^{}|H{a_{}^{})\ P(D|\Theta{}_{1},\ Ha{)\ d\Theta}_{1}}_{}}{P(\Theta_{2}|{H_{}^{}}_{b})\ P(D|{\Theta{}_{2},H}_{b})d\Theta{}_{2}}$$$
+
+(olvasd: A Bayes faktor egyenlő annak az arányával, hogy az adatok (D)
+mennyire valószínűek az "a" hipotézisünk (H~a~) és a "b" hipotézisünk
+(H~b~) alatt , **Bayes faktor=marginal likelihood ratio**)
+
+A Bayes faktor csak akkor egyezik meg a (sima) likelihood ratioval, ha
+egzakt hipotézisekről van szó, különben az integrál formát használjuk,
+azaz a marginális likelihoodokat (modell evidenciákat) hasonlítjuk
+össze (**lásd. Poszterior**).
 
 A Bayes faktornál összehasonlított prior hipotézisek általában a
 klasszikus hipotézistesztelésből átvett nullhipotézis és alternatív
@@ -2067,14 +1801,14 @@ Abban, hogy mit is jelent pontosan, hogy 5-ös, 10-es stb. Bayes faktort
 kapunk, nincs teljes megegyezés a szakemberek között, viszont az alábbi
 táblázat egy egyszerű kiindulópontot biztosít az értelmezéséhez.
 
-> A táblázatban a H1 az alternatív hipotézist, a H0 pedig a
-> nullhipotézist jelöli.
->
-> ![](media/image23.png){width="6.104166666666667in"
-> height="1.6979166666666667in"}
+A táblázatban a H1 az alternatív hipotézist, a H0 pedig a
+nullhipotézist jelöli.
+
+![](images/image33.png){width="6.104166666666667in"
+height="1.6979166666666667in"}
 
 Egy érthető magyarázata a Bayes faktornak példával a [[BayesFactor
-blogon]{.ul}](http://bayesfactor.blogspot.hu/2014/02/the-bayesfactor-package-this-blog-is.html?m=1)
+blogon]](http://bayesfactor.blogspot.hu/2014/02/the-bayesfactor-package-this-blog-is.html?m=1)
 taláálható.
 
 > **Mire jó a Bayes faktor, és mire nem jó?**
@@ -2093,15 +1827,15 @@ taláálható.
     > mértékben támogatják az egyik modellt a másikhoz képest. Tehát a B
     > egy relatív bizonyítékot ad és az eredménye nem értelmezhető
     > önmagában a nullára (Bővebben Morey bolgján
-    > [[itt]{.ul}](https://richarddmorey.org/2015/03/two-things-to-stop-saying-about-null-hypotheses/)).
+    > [[itt]](https://richarddmorey.org/2015/03/two-things-to-stop-saying-about-null-hypotheses/)).
 
 -   **Replikációs kísérletek értékelésére**: egy replikáció csak akkor
     > sikertelen, ha az adatok a nullát támogatják az alternatívával
     > szemben, az inkonklúzív eredményeket nem szabad sikerként vagy nem
     > támogató eredményként kezelni. Emiatt érdemes a B-t használni
     > replikációk eredményének értelmezésére ([[Data
-    > colada]{.ul}](http://datacolada.org/47); [[Verhagen & EJ,
-    > 2014]{.ul}](http://web.archive.org/web/20151026061603/http:/www.ejwagenmakers.com/2014/VerhagenWagenmakers2014.pdf)).
+    > colada]](http://datacolada.org/47); [[Verhagen & EJ,
+    > 2014]](http://web.archive.org/web/20151026061603/http:/www.ejwagenmakers.com/2014/VerhagenWagenmakers2014.pdf)).
 
 > **Kritika**
 
@@ -2110,7 +1844,7 @@ taláálható.
     > nincs semmi információ. Megoldás lehet az ilyen esetekre a default
     > Cauchy eloszlás, ami a legtöbb (pszichológiában elvárt)
     > hatásmértéket lefedi (lásd [[Rouder et
-    > al., 2016)]{.ul}](https://www.dropbox.com/s/7kpion5dqacpwai/Rouder%20et%20al.%202016%20psy%20sci%20bayes.pdf?dl=0)
+    > al., 2016)]](https://www.dropbox.com/s/7kpion5dqacpwai/Rouder%20et%20al.%202016%20psy%20sci%20bayes.pdf?dl=0)
 
 -   **Default Cauchy eloszlás az alternatív modell reprezentálására**:
 
@@ -2118,13 +1852,13 @@ taláálható.
 <!-- -->
 ```
 -   a skála-paraméter (lásd [[Cauchy
-    > eloszlás]{.ul}](https://en.wikipedia.org/wiki/Cauchy_distribution))
+    > eloszlás]](https://en.wikipedia.org/wiki/Cauchy_distribution))
     > növekedésével egyre jobban a null modellt favorizálja
-    > ([[blog]{.ul}](https://replicationindex.wordpress.com/2016/07/25/bayes-ratios-a-principled-approach-to-bayesian-hypothesis-testing/))
+    > ([[blog]](https://replicationindex.wordpress.com/2016/07/25/bayes-ratios-a-principled-approach-to-bayesian-hypothesis-testing/))
 
 -   Kifejezetten nagy hatásokat is valószínűsít, emiatt túlzottan növeli
     > a null modell támogatottságát (utal rá [[Rouder et al., 2009 p.
-    > 232]{.ul}](https://www.dropbox.com/s/tvn7lj9r5hgu0t3/Rouderetal09.pdf?dl=0))
+    > 232]](https://www.dropbox.com/s/tvn7lj9r5hgu0t3/Rouderetal09.pdf?dl=0))
 
 -   A tudományban nincs default elmélet vagy hatásmérték, így minden
     > esetben ki kell értékelni, hogy a hipotézisünk reprezentálására
@@ -2132,13 +1866,13 @@ taláálható.
     > lehetőségünk van rá, építsük be az elméletről vagy domain-ről
     > rendelkezésünkre álló tudást az alternatív modellbe, és térjünk el
     > a default prior eloszlástól ([[Dienes, 2014
-    > p.6]{.ul}](https://www.dropbox.com/s/xcvz494zos30esa/Dienes_%20Bayes.pdf?dl=0);
+    > p.6]}](https://www.dropbox.com/s/xcvz494zos30esa/Dienes_%20Bayes.pdf?dl=0);
     > [[Rouder et al., 2009 p.
-    > 232]{.ul}](https://www.dropbox.com/s/tvn7lj9r5hgu0t3/Rouderetal09.pdf?dl=0))
+    > 232]](https://www.dropbox.com/s/tvn7lj9r5hgu0t3/Rouderetal09.pdf?dl=0))
 
-[[Wikipedia]{.ul}](https://en.wikipedia.org/wiki/Bayes_factor)
+[[Wikipedia]](https://en.wikipedia.org/wiki/Bayes_factor)
 
-[PLOS cikk]{.ul}
+[PLOS cikk](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0182651)
 
 ## Hihetőségi Intervallum (Credible Interval)
 
@@ -2148,15 +1882,15 @@ Más nevén: Posterior Probability Interval (PPI)
 szubjektív valószínűséggel esik bele. Ehhez le kell generálni a
 *poszterior eloszlást* és abból következik, hogy hol a belső 95%.
 
-[[Posterior]{.ul}](https://en.wikipedia.org/wiki/Posterior_probability),
-[[Likelihood]{.ul}](https://en.wikipedia.org/wiki/Likelihood_function),
-[[Conjugate prior]{.ul}](https://en.wikipedia.org/wiki/Conjugate_prior),
+[[Posterior]](https://en.wikipedia.org/wiki/Posterior_probability),
+[[Likelihood]](https://en.wikipedia.org/wiki/Likelihood_function),
+[[Conjugate prior]](https://en.wikipedia.org/wiki/Conjugate_prior),
 [[Posterior
-predictive]{.ul}](https://en.wikipedia.org/wiki/Posterior_predictive_distribution),
-[[Hyperparameter]{.ul}](https://en.wikipedia.org/wiki/Hyperparameter),
-[[Hyperprior]{.ul}](https://en.wikipedia.org/wiki/Hyperprior),
+predictive]](https://en.wikipedia.org/wiki/Posterior_predictive_distribution),
+[[Hyperparameter]](https://en.wikipedia.org/wiki/Hyperparameter),
+[[Hyperprior]](https://en.wikipedia.org/wiki/Hyperprior),
 [[Principle of
-indifference]{.ul}](https://en.wikipedia.org/wiki/Principle_of_indifference)
+indifference]](https://en.wikipedia.org/wiki/Principle_of_indifference)
 
 **Közömbösségi elv (Principle of indifference)**
 
@@ -2178,7 +1912,7 @@ valószínűségeinek összege 1, és a nevükön kívül mindenben megegyeznek
 ilyen lehetőséghez 1/*n*-nel megegyező valószínűséget kell rendelni.
 
 A bayesiánus valószínűségszámításban ez a legegyszerűbb [[nem-informatív
-prior]{.ul}](https://en.wikipedia.org/wiki/Prior_probability#Uninformative_priors).
+prior]](https://en.wikipedia.org/wiki/Prior_probability#Uninformative_priors).
 
 ## Konjugált prior
 
@@ -2189,7 +1923,7 @@ eloszlás, akkor a prior és poszterior **konjugált eloszlások**, és a
 priort a (likelihood függvényre nézve) **konjugált priornak** nevezzük.
 A poszterior eloszlás:
 
-![](media/image13.png){width="2.53125in" height="0.5729166666666666in"}
+![](images/image11.png){width="2.53125in" height="0.5729166666666666in"}
 
 A konjugált prior fogalmának bevezetése algebrai könnyebbséget jelent,
 ugyanis ekkor a prior és a poszterior hasonló algebrai alakot vesz fel.
@@ -2208,7 +1942,7 @@ standard eloszlások (pl. Beta, binomiális, gamma stb.) valamelyike,
 esetleg azok kombinációi illeszkedik e a modellhez. Így konjugált
 priorokkal megbecsülhetjük a priorunkat.
 
-[[wikipedia]{.ul}](https://en.wikipedia.org/wiki/Conjugate_prior)
+[[wikipedia]](https://en.wikipedia.org/wiki/Conjugate_prior)
 
 [[https://www.chrisstucchio.com/blog/2013/magic_of_conjugate_priors.html]{.ul}](https://www.chrisstucchio.com/blog/2013/magic_of_conjugate_priors.html)
 
@@ -2225,9 +1959,9 @@ esemény ugyanakkora valószínűséggel fordul elő, így ennek a legnagyobb
 az entrópiája, ez a legkevésbé informatív eloszlás.
 
 [[érthető
-magyarázat]{.ul}](http://corysimon.github.io/articles/the-principle-of-maximum-entropy/)
+magyarázat]](http://corysimon.github.io/articles/the-principle-of-maximum-entropy/)
 
-[[wikipedia]{.ul}](https://en.wikipedia.org/wiki/Principle_of_maximum_entropy)
+[[wikipedia]](https://en.wikipedia.org/wiki/Principle_of_maximum_entropy)
 
 ## Empirikus Bayes módszer
 
@@ -2235,7 +1969,7 @@ Az empirikus Bayes módszer, más néven a Maximum Marginal Likelihood
 módszer, a prior eloszlás paramétereit (a hiperparamétereket) a
 legvalószínűbb értékeikre állítjuk.
 
-[[wikipedia]{.ul}](https://en.wikipedia.org/wiki/Empirical_Bayes_method)
+[[wikipedia]](https://en.wikipedia.org/wiki/Empirical_Bayes_method)
 
 ## Cromwell szabály
 
@@ -2244,7 +1978,7 @@ legyen, kivéve ha igen-nem döntésről van szó, hiszen a Bayes tétel
 alapján ebben az esetben a posterior valószínűség is mindenképp 0 vagy 1
 lesz. Tehát az evidenciának semmilyen hatása nincs a véleményünkre.
 
-[[wikipedia]{.ul}](https://en.wikipedia.org/wiki/Cromwell%27s_rule)
+[[wikipedia]](https://en.wikipedia.org/wiki/Cromwell%27s_rule)
 
 ## Bernstein--von Mises tétel
 
@@ -2253,7 +1987,7 @@ eloszlás a gyakorlatban független a prior eloszlástól, amennyiben elég
 információt szolgáltat a megfigyelt adatunk. (És ha a Cromwell szabály
 érvényesül.)
 
-[[wikipedia]{.ul}](https://en.wikipedia.org/wiki/Bernstein%E2%80%93von_Mises_theorem)
+[[wikipedia]](https://en.wikipedia.org/wiki/Bernstein%E2%80%93von_Mises_theorem)
 
 ## Bayes-féle információs kritérium (másnéven Schwarz kritérium)
 
@@ -2275,9 +2009,9 @@ BIC (Model A -- Model B) , ha BIC(A) \> BIC(B)\
 ≥ 10.0 Nagyon erős és a B-t támogatja\
 ========================================
 
-[[wikipedia]{.ul}](https://en.wikipedia.org/wiki/Bayesian_information_criterion)
+[[wikipedia]](https://en.wikipedia.org/wiki/Bayesian_information_criterion)
 
-[[határértékek]{.ul}](http://epid.blogspot.hu/2012/11/the-rule-of-thumb-aic-signficance-levels.html)
+[[határértékek]](http://epid.blogspot.hu/2012/11/the-rule-of-thumb-aic-signficance-levels.html)
 
 ## Uniform eloszlás
 
@@ -2295,11 +2029,11 @@ minimumhely is egyben, ábrázolva egy vízszintes egyenes vonal).
 A Lagrange szorzó megmondja egy adott függvény maximumát vagy minimumát
 az adott korlátok között.
 
-[[Wikipedia]{.ul}](https://en.wikipedia.org/wiki/Lagrange_multiplier)
+[[Wikipedia]](https://en.wikipedia.org/wiki/Lagrange_multiplier)
 
-[[Példa]{.ul}](http://www.slimy.com/~steuard/teaching/tutorials/Lagrange.html)
+[[Példa]](http://www.slimy.com/~steuard/teaching/tutorials/Lagrange.html)
 
-## Maximum Likelihood becslés ([[MLE]{.ul}](https://en.wikipedia.org/wiki/Maximum_likelihood_estimation))
+## Maximum Likelihood becslés ([[MLE]](https://en.wikipedia.org/wiki/Maximum_likelihood_estimation))
 
 *Etz cikk:*
 
@@ -2327,20 +2061,20 @@ tengelyen mért változó (pl.: időt mérünk és a mérések pontosan X
 másodpercnyi időközönként történnek), ezen felül az y tengelyen a mérési
 hibák hosszútávú eloszlása normáleloszlást követ, akkor a [[központi
 határeloszlás
-tétele]{.ul}](https://hu.wikipedia.org/wiki/Centr%C3%A1lis_hat%C3%A1reloszl%C3%A1s-t%C3%A9tel)
+tétele]](https://hu.wikipedia.org/wiki/Centr%C3%A1lis_hat%C3%A1reloszl%C3%A1s-t%C3%A9tel)
 szerint az a modell lesz a legvalószínűbb mindközül, amelynek a
 reziduális négyzetösszege a legkisebb.
 
 ## Maximum a posteriori becslés
 
-([[MPE]{.ul}](https://en.wikipedia.org/wiki/Maximum_a_posteriori_estimation))
+([[MPE]](https://en.wikipedia.org/wiki/Maximum_a_posteriori_estimation))
 
 Egy paraméterre adott pontbecslést lehet az eljárás segítségével adni
 (ebben különbözik a legtöbb Bayesiánus eljárástól, hiszen azok
 valószínűségi eloszlásokat használnak többnyire). A módszer eredménye a
 mérések végén rendelkezésünkre álló posterior eloszlás módusza lesz.
 Hasonló eljárás, mint az MLE, tekinthető a
-[[regularizációjának]{.ul}](https://en.wikipedia.org/wiki/Regularization_(mathematics)).
+[[regularizációjának]](https://en.wikipedia.org/wiki/Regularization_(mathematics)).
 A különbség a két eljárás között az, hogy az MPE használ prior
 eloszlást, míg az MLE nem. Problémája: a pontbecslés miatt nem tudjuk
 meghatározni, hogy mennyire vagyunk biztosak az eredményben.
@@ -2372,13 +2106,13 @@ tulajdonság").
 
 (Példa feladadat és az eljárás lépései+ R kód a 2. cikkben!).
 
-[[https://jeremykun.com/2015/04/06/markov-chain-monte-carlo-without-all-the-bullshit/]{.ul}](https://jeremykun.com/2015/04/06/markov-chain-monte-carlo-without-all-the-bullshit/)
+[[https://jeremykun.com/2015/04/06/markov-chain-monte-carlo-without-all-the-bullshit/]](https://jeremykun.com/2015/04/06/markov-chain-monte-carlo-without-all-the-bullshit/)
 
 [[https://link.springer.com/article/10.3758/s13423-016-1015-8]{.ul}](https://link.springer.com/article/10.3758/s13423-016-1015-8)
 
 ## Bayesiánus lineáris regresszió
 
-([[BLR]{.ul}](https://en.wikipedia.org/wiki/Bayesian_linear_regression))
+([[BLR]](https://en.wikipedia.org/wiki/Bayesian_linear_regression))
 
 Bayesiánus megfelelője az MLE-nek és az MPE-nek, megoldást nyújt azokra
 a problémákra, amik ezeknél felmerülnek, hiszen egyszerre használ priort
@@ -2393,7 +2127,7 @@ kapott likelihood függvénnyel Bayes tétele alapán átalakítjuk.
 
 ## Bayesiánus becslés vagy bayesiánus cselekvés
 
-([[wiki]{.ul}](https://en.wikipedia.org/wiki/Bayes_estimator))
+([[wiki]](https://en.wikipedia.org/wiki/Bayes_estimator))
 
 Olyan döntési szabály, vagy becslés, ami minimalizálja a veszteség
 függvény (lásd lejjebb) posterior várható értékét. Erre példa, hogy az
@@ -2403,7 +2137,7 @@ a leadott szavazatok száma milyen közel van ehhez az értékhez.
 
 ## Veszteség függvény (Loss function)
 
-([[statlect]{.ul}](https://www.statlect.com/glossary/loss-function))
+([[statlect]](https://www.statlect.com/glossary/loss-function))
 
 Pontbecslésnél használatos fogalom. A definíciója nem más, mint a
 becslés és a tényleges paraméter közötti hibák térképezése és valós
@@ -2412,7 +2146,7 @@ mértékének jelzésére.
 
 ## Közelítő Bayesiánus Eljárások
 
-([[ABC]{.ul}](https://en.wikipedia.org/wiki/Approximate_Bayesian_computation))
+([[ABC]](https://en.wikipedia.org/wiki/Approximate_Bayesian_computation))
 
 Olyan statisztikai eljárások, amik bayesiánus alapúak. Ezek túllépnek a
 szigorúan likelihood függvény alapú számításokon, mivel olyan
@@ -2423,7 +2157,7 @@ nagyságát, ezek csökkentésére használják a bayesiánus becsléseket.
 
 ## Jeffreys-Lindley paradoxon
 
-([[wiki]{.ul}](https://en.wikipedia.org/wiki/Lindley%27s_paradox))
+([[wiki]](https://en.wikipedia.org/wiki/Lindley%27s_paradox))
 
 Tualjdonképpen nem is paradoxon.
 
@@ -2442,7 +2176,7 @@ tudunk különböztetni a vizsgált modell paramétereitől (pl.a vizsgált
 hiperparamétere az r. A hiperparaméter lehet egyetlen érték, de egy
 eloszlással is ábrázolhatjuk - ebben az esetben hiperpriorról beszélünk.
 
-[[Wikipedia]{.ul}](https://en.wikipedia.org/wiki/Hyperparameter)
+[[Wikipedia]](https://en.wikipedia.org/wiki/Hyperparameter)
 
 ## Bayesiánus hálózat (Bayesian network)
 
@@ -2453,9 +2187,9 @@ ezeket összekötő vonalak jelzik a közöttük lévő kapcsolatokat, ezek
 iránya pedig a kazualitást, melyik hat melyikre.
 
 Szemléltetés: [[Bayesian Belief Networks for
-dummies]{.ul}](https://www.slideshare.net/GiladBarkan/bayesian-belief-networks-for-dummies)
+dummies]](https://www.slideshare.net/GiladBarkan/bayesian-belief-networks-for-dummies)
 
-[[Wikipedia]{.ul}](https://en.wikipedia.org/wiki/Bayesian_network)
+[[Wikipedia]](https://en.wikipedia.org/wiki/Bayesian_network)
 
 ## Savage-Dickey density ratio
 
@@ -2471,7 +2205,7 @@ Minél alacsonyabb a poszterior hipotézis likelihoodja a nullánál a
 priorhoz képest, az adatok annál jobban az alternatív hipotézist fogják
 támogatni, és ez fordítva is igaz.
 
-![analysis.png](media/image25.png){width="3.6478871391076115in"
+![analysis.png](images/image18.png){width="3.6478871391076115in"
 height="2.8906255468066493in"}
 
 Az ábrán látható, hogy míg a prior hipotézis viszonylag magas
@@ -2483,7 +2217,7 @@ valószínűsége a poszterior hipotézis alatt(a számlálóban) osztva a
 nullhipotézis által prediktált paraméter valószínűségével a prior
 hipotézis alatt (nevező).
 
-![](media/image12.png){width="3.3034339457567805in"
+![](images/image5.png){width="3.3034339457567805in"
 height="0.6510422134733158in"}
 
 De miért csak egy prior hipotézisünk van? Ennek a módszernek az egyik
@@ -2501,20 +2235,11 @@ használni). A null- és az alternatív hipotézis itt egymásba vannak
 azt a pontját képezi, amely a nullánál szerepel. Erre a jelenségre az
 angol szakirodalom "nested modell"-ként hivatkozik.
 
-[[https://lirias.kuleuven.be/bitstream/123456789/277829/1/CP.pdf]{.ul}](https://lirias.kuleuven.be/bitstream/123456789/277829/1/CP.pdf)
+[[https://lirias.kuleuven.be/bitstream/123456789/277829/1/CP.pdf]](https://lirias.kuleuven.be/bitstream/123456789/277829/1/CP.pdf)
 
-<!--chapter:end:02_chapter.Rmd-->
+<!--chapter:end:02-chapter.Rmd-->
 
-
-<!--chapter:end:03_chapter.Rmd-->
-
-
-<!--chapter:end:04_chapter.Rmd-->
-
-
-<!--chapter:end:05_chapter.Rmd-->
-
-#Szisztematikus összefoglaló és meta-analízis készítése
+#Szisztematikus összefoglaló és meta-analízis készítése {-}
 
 A szakirodalmi összefoglaló célja, hogy egy terület kutatásait
 összegezze. Az így kinyert eredmények több kutatás eredményeit
@@ -2540,7 +2265,7 @@ tanulmányok összesítésével és szintézisével jutnak következtetésekre.
 
 **1. Ábra. Bizonyítékok hierarchiája**
 
-![](media/image4.png){width="5.624601924759405in"
+![](images/abra1.png){width="5.624601924759405in"
 height="3.6718755468066493in"}
 
 ## Összefoglaló tanulmány fajták
@@ -2570,7 +2295,7 @@ hatásnagyság mekkora lehet a populációban.
 **2. Ábra. Az összefoglaló tanulmány fajták és azok bizonyító erejének
 összefüggése**
 
-![](media/image3.png){width="3.682292213473316in"
+![](images/abra2.png){width="3.682292213473316in"
 height="1.9633453630796152in"}
 
 ### Narratív összefoglalók
@@ -2635,7 +2360,7 @@ jobb idézettségre számíthatnak, és ennek megfelelően a folyóitatok is
 szívesen publikálják őket. Természetesen egy meta-analízis eredményei
 csak annyira megbízhatóak, amennyire a bennefoglalt cikkek azt engedik.
 
-# A szisztematikus összefoglaló és meta-analízis készítésének lépései
+## A szisztematikus összefoglaló és meta-analízis készítésének lépései
 
 Az alábbiakban a meta-analízis készítésének lépéseit írjuk le. A fejezet
 későbbi részében pedig ezeknek a lépéseknek a kivitelezéséről lesz
@@ -2724,7 +2449,7 @@ fejezetben is ezt tekintjük mérvadónak. Számos folyóiratnál követelmény,
 hogy a PRISMA követelményeinek eleget tegyen a publikálásra leadott
 tanulmány.
 
-# Összefoglaló írásának lépései
+## Összefoglaló írásának lépései
 
 ## A kutatás céljának meghatározása
 
@@ -2859,7 +2584,8 @@ minden adatbázishoz külön kell megadnunk. A publikációban azt is le kell
 **3. Ábra. Keresőkifejezés példa**
 
 Forrás: [(Kassai et al.,
-2019)](https://paperpile.com/c/47ntK5/KZQd)![](media/image6.png){width="6.267716535433071in"
+2019)](https://paperpile.com/c/47ntK5/KZQd)
+![](images/abra3.png){width="6.267716535433071in"
 height="1.5in"}
 
 ## Cikkek szűrése
@@ -2892,7 +2618,7 @@ melyik szakaszban hány kutatás esett ki a szűrőn.
 
 **4. Ábra. PRISMA folyamatábra sablon**
 
-![](media/image5.png){width="4.619750656167979in"
+![](images/abra4.png){width="4.619750656167979in"
 height="5.161776027996501in"}
 
 Forrás:
@@ -3223,7 +2949,7 @@ jóval alacsonyabb vagy magasabb értékek.
 **5. Ábra Forest plot**
 
 Forrás: [(Harrer et al.,
-2021)](https://paperpile.com/c/47ntK5/cXeG)![](media/image9.png){width="6.267716535433071in"
+2021)](https://paperpile.com/c/47ntK5/cXeG)![](images/abra5.png){width="6.267716535433071in"
 height="2.9166666666666665in"}
 
 ## Hatásméretek heterogenitása
@@ -3351,7 +3077,7 @@ eltérés [(Lindeløv, 2019)](https://paperpile.com/c/47ntK5/NE7Y).
 
 **6. Ábra Két csoport különbségének ábrázolása regresszióként**
 
-![](media/image2.png){width="5.097904636920385in"
+![](images/abra6.png){width="5.097904636920385in"
 height="2.620297462817148in"}
 
 Forrás: [(Lindeløv, 2019)](https://paperpile.com/c/47ntK5/NE7Y)
@@ -3365,7 +3091,7 @@ külön-külön tesztelhető.
 
 **7. Ábra Több csoport különbségének ábrázolása regresszióként**
 
-![](media/image7.png){width="4.0791240157480315in"
+![](imagesabra7.png){width="4.0791240157480315in"
 height="2.7194061679790025in"}
 
 Forrás: [(Lindeløv, 2019)](https://paperpile.com/c/47ntK5/NE7Y)
@@ -3486,10 +3212,10 @@ vagy összesítve is láthatjuk az egyes torzítások kockázatát.
 **8. Ábra. A torzítási kockázatok ábrázolása forrásonként**
 
 **9. Ábra. A torzítási kockázatok összesített ábrázolása az összes
-tanulmányra**![](media/image10.png){width="3.2031255468066493in"
+tanulmányra**![](images/abra8.png){width="3.2031255468066493in"
 height="4.798946850393701in"}
 
-![](media/image1.png){width="6.106737751531059in"
+![](images/abra9.png){width="6.106737751531059in"
 height="1.8368044619422572in"}
 
 ## Publikációs torzítások (publication bias)
@@ -3578,12 +3304,12 @@ jelzik, hogy az egyes tanulmányok hatásméretei a szignifikancia melyik
 szintjét érik el. Különösen a p\< 0,05 és p\< 0,01 sávok fontosak, mivel
 az ebbe a területbe eső hatásméreteket hagyományosan szignifikánsnak
 tekintik. Amennyiben a hatásméretek
-![](media/image8.png){width="4.729166666666667in"
+![](images/abra10.png){width="4.729166666666667in"
 height="3.1121719160104986in"}
 
 **11. Ábra. Kontúros tölcsér ábra (contour-enhanced funnel plot)
 torzítási hiba
-esetén**![](media/image11.png){width="4.770833333333333in"
+esetén**![](images/abra11.png){width="4.770833333333333in"
 height="3.03125in"}
 
 ### Publikációs torzítás statisztikai vizsgálata és korrekciója
@@ -3690,7 +3416,7 @@ végzésére szolgáló csomag elérhető. Ezek közül a metafor [(Viechtbauer,
 legjobban dokumentált [(Quintana,
 2015)](https://paperpile.com/c/47ntK5/FEeD).
 
-# Irodalomjegyzék
+## Irodalomjegyzék
 
 [Ben-Shachar, M., Lüdecke, D., & Makowski, D. (2020). *Automated
 Interpretation of Indices of Effect
@@ -3845,5 +3571,5 @@ https://doi.org/](http://paperpile.com/b/47ntK5/lasZ)[10.3389/fpsyg.2016.02030](
     ajánljuk
     [[https://bookdown.org/MathiasHarrer/Doing_Meta_Analysis_in_R/formula.html]{.ul}](https://bookdown.org/MathiasHarrer/Doing_Meta_Analysis_in_R/formula.html)
 
-<!--chapter:end:metaanalizis.Rmd-->
+<!--chapter:end:03-chapter.Rmd-->
 

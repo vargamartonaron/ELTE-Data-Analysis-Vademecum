@@ -1,4 +1,4 @@
---- 
+---
 title: "Adatelemzési Kisokos"
 subtitle: "Jegyzet"
 author: 
@@ -10,15 +10,19 @@ output:
   bookdown::gitbook:
     config: 
       toc:
-       collapse: section
+       collapse: subsection
+       scroll_highlight: yes
       search: yes
       fontsettings:
         size: 2
     split_by: section
-    includes:
-      after_body: banner.html
+    toc_float: true
+    includes: 
+      in_header: toc.css
+    #includes:
+      #after_body: banner.html
     df_print: paged
-    theme: !expr bslib::bs_theme()
+    theme: united
 documentclass: book
 bibliography: [book.bib, packages.bib]
 biblio-style: apalike
@@ -28,285 +32,26 @@ description: |
   This is an ELTE University material about how to conduct various statistical methods.
 link-citations: yes
 twitter-handle : vargamartonaron
+editor_options: 
+  markdown: 
+    wrap: 72
 ---
-**JEGYZET**
-
-**Nagy Tamás, Aczél Balázs**
 
 **ELTE PPK**
 
-[[Metaanalízis
-vademecum]](https://docs.google.com/document/d/1k4DsNl8oCs3NPrU6Ask46qbtUPogY_lAhKViV6piT7U/edit?mode=html#heading=h.t83vel3be1zp)
+[\[Metaanalízis vademecum\]](https://docs.google.com/document/d/1k4DsNl8oCs3NPrU6Ask46qbtUPogY_lAhKViV6piT7U/edit?mode=html#heading=h.t83vel3be1zp)
 
-[[Meta-analízis workshop - 1.
-nap]](https://docs.google.com/presentation/d/1xrbn_EB4G3P76OrgEzrX2sRB0IYMNZb9AvlsERt-sEY/edit#slide=id.p)
+[\[Meta-analízis workshop - 1. nap\]](https://docs.google.com/presentation/d/1xrbn_EB4G3P76OrgEzrX2sRB0IYMNZb9AvlsERt-sEY/edit#slide=id.p)
 
-[[Meta-analízis workshop - 2.
-nap]](https://docs.google.com/presentation/d/1f7B43XufTRfHV8eiwu3mg7Sue4MJvV1OBg6XNCCU9Vc)
+[\[Meta-analízis workshop - 2. nap\]](https://docs.google.com/presentation/d/1f7B43XufTRfHV8eiwu3mg7Sue4MJvV1OBg6XNCCU9Vc)
 
-[[Meta-analízis
-workshop]](https://docs.google.com/document/d/11I0_ZVjS2o8AS5K-JttyHG-2_Z8g-xnH2sjIWR5i3V0/edit)
-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\--
+[\[Meta-analízis workshop\]](https://docs.google.com/document/d/11I0_ZVjS2o8AS5K-JttyHG-2_Z8g-xnH2sjIWR5i3V0/edit)
 
-[[Statisztikai
-vademecum]](https://docs.google.com/document/d/1RCPzh3GqXojEPPfYYgyI4uV52tjFSdECx_NCXoS0SDc/edit?mode=html#heading=h.7bd67wbeq6fn)
+---
 
-[[Registered Report
-Vademecum]](https://docs.google.com/document/d/155LyJXyGsCp5rx00ulW0NabYdg19ifzM9JIbBzWTQOQ/edit?mode=html#heading=h.g6ssb1irxam4)
+[\[Statisztikai vademecum\]](https://docs.google.com/document/d/1RCPzh3GqXojEPPfYYgyI4uV52tjFSdECx_NCXoS0SDc/edit?mode=html#heading=h.7bd67wbeq6fn)
 
-[[Best practices
-vademecum]](https://docs.google.com/document/d/1j9oSB1YWY3KclN-IfoxQ7H0rTvccI4-iCk640r-lYzk/edit?mode=html#heading=h.9tncyej87ts7)
+[\[Registered Report Vademecum\]](https://docs.google.com/document/d/155LyJXyGsCp5rx00ulW0NabYdg19ifzM9JIbBzWTQOQ/edit?mode=html#heading=h.g6ssb1irxam4)
 
-## TARTALOM
+[\[Best practices vademecum\]](https://docs.google.com/document/d/1j9oSB1YWY3KclN-IfoxQ7H0rTvccI4-iCk640r-lYzk/edit?mode=html#heading=h.9tncyej87ts7)
 
-**[FOGALOMTÁR A LINEÁRIS
-REGRESSZIÓHOZ](#fogalomtár-a-lineáris-regresszióhoz) 5**
-
-> [Hasznos linkek](#hasznos-linkek) 5
->
-> **[A regresszióról általánosságban](#a-regresszióról-általánosságban)
-> 6**
->
-> **[Legkisebb négyzetek módszere](#legkisebb-négyzetek-módszere) 6**
->
-> **[R és R2](#r-és-r2) 7**
->
-> **[F statisztika](#f-statisztika) 7**
->
-> **[A prediktorok hatékonyságának
-> megítélése](#a-prediktorok-hatékonyságának-megítélése) 8**
->
-> [A regressziós koefficiensek/ béták
-> (hiányzik)](#a-regressziós-koefficiensek-béták-hiányzik) 8
->
-> **[Többváltozós regresszió](#többváltozós-regresszió) 9**
->
-> **[Regressziós módszerek](#regressziós-módszerek) 10**
->
-> [Hierarchikus módszer](#hierarchikus-módszer) 10
->
-> [Kényszerített bevitel ("forced
-> entry")](#kényszerített-bevitel-forced-entry) 10
->
-> [Lépésről lépésre történő regresszió (Stepwise
-> methods)](#lépésről-lépésre-történő-regresszió-stepwise-methods) 11
->
-> [All subsets methods](#all-subsets-methods) 12
->
-> [A megfelelő módszer kiválasztása](#a-megfelelő-módszer-kiválasztása)
-> 12
->
-> **[AIC (Akaike Information Criteria) és BIC (Bayesian Information
-> Criteria)](#aic-akaike-information-criteria-és-bic-bayesian-information-criteria)
-> 13**
->
-> **[A modell általánosításának
-> feltételei](#a-modell-általánosításának-feltételei) 13**
->
-> **[Keresztvalidálás
-> (cross-validation)](#keresztvalidálás-cross-validation) 15**
->
-> **[Mintaméret a regresszióban](#mintaméret-a-regresszióban) 15**
->
-> **[Multikollinearitás](#multikollinearitás) 16**
->
-> **[Cook's distance vagy Cook's D](#cooks-distance-vagy-cooks-d) 17**
->
-> **[Shiny App-ek](#shiny-app-ek) 17**
->
-> **[Regresszió--elemzés (Regression
-> diagnostics)](#regresszióelemzés-regression-diagnostics) 18**
->
-> **[A multilevel (többszintű) regresszióról
-> (19.2)](#a-multilevel-többszintű-regresszióról-19.2) 20**
->
-> [Hierarchikus adatok (19.2.)](#hierarchikus-adatok-19.2.) 20
->
-> [Osztályon belüli korreláció (Intraclass Correlation (ICC),
-> 19.2.1.)](#osztályon-belüli-korreláció-intraclass-correlation-icc-19.2.1.)
-> 20
->
-> [A többszintű regresszió előnyei
-> (19.2.2.)](#a-többszintű-regresszió-előnyei-19.2.2.) 20
->
-> **[Fix és random hatások (19.3.2)](#fix-és-random-hatások-19.3.2) 21**
->
-> **[Fix és random együtthatók](#fix-és-random-együtthatók) 21**
->
-> **[A többszintes regressziós
-> modell](#a-többszintes-regressziós-modell) 22**
->
-> **[A többszintű regressziós modellek illeszkedésének vizsgálata és
-> összehasonlítása](#a-többszintű-regressziós-modellek-illeszkedésének-vizsgálata-és-összehasonlítása)
-> 24**
->
-> **[Kovariancia struktúrák típusai
-> (19.4.2)](#kovariancia-struktúrák-típusai-19.4.2) 25**
->
-> [Variancia komponensek:](#variancia-komponensek) 25
->
-> [Diagonális:](#diagonális) 26
->
-> [AR(1):](#ar1) 26
->
-> [Strukturálatlan:](#strukturálatlan) 26
->
-> **[Előfeltevések (19.5.1.)](#előfeltevések-19.5.1.) 27**
->
-> **[Minta méret és statisztikai erő
-> (19.5.2.)](#minta-méret-és-statisztikai-erő-19.5.2.) 28**
->
-> **[Központosított változók/ Centred variables
-> (19.5.3.)](#központosított-változók-centred-variables-19.5.3.) 28**
->
-> [Mikor centráljunk?](#mikor-centráljunk) 29
->
-> [Group mean vagy grand mean jobb?](#group-mean-vagy-grand-mean-jobb)
-> 29
->
-> **[Szükségünk van-e multilevel modellre?
-> (19.6.6)](#szükségünk-van-e-multilevel-modellre-19.6.6) 29**
->
-> **[Növekedési modellek (19.7)](#növekedési-modellek-19.7) 30**
->
-> [Növekedési görbék (polinomok)](#növekedési-görbék-polinomok) 30
->
-> **[Az eredmények publikálása](#az-eredmények-publikálása) 30**
->
-> **[Logisztikus Regresszió](#logisztikus-regresszió) 31**
->
-> **[Mit tud a logisztikus
-> regresszió?](#mit-tud-a-logisztikus-regresszió) 31**
->
-> **[A logisztikus regresszió
-> egyenlete](#a-logisztikus-regresszió-egyenlete) 32**
->
-> **[Log-likelihood (8.3.1)](#log-likelihood-8.3.1) 32**
->
-> **[A modell értékelése (8.3.2)](#a-modell-értékelése-8.3.2) 33**
->
-> **[Assessing the model : R and R2
-> (8.3.3.)](#assessing-the-model-r-and-r2-8.3.3.) 34**
->
-> **[A modell értékelése (8.3.4)](#a-modell-értékelése-8.3.4) 35**
->
-> **[A prediktorok modellhez való hozzájárulásának felbecslése
-> (8.3.5)](#a-prediktorok-modellhez-való-hozzájárulásának-felbecslése-8.3.5)
-> 35**
->
-> **[Odds ratio (8.3.6)](#odds-ratio-8.3.6) 36**
->
-> **[A logisztikus regresszió előfeltételei
-> (8.4.1)](#a-logisztikus-regresszió-előfeltételei-8.4.1) 36**
->
-> **[A logisztikus regresszió sajátos problémái (8.4.2. és
-> 8.4.3)](#a-logisztikus-regresszió-sajátos-problémái-8.4.2.-és-8.4.3)
-> 37**
->
-> **[Hogyan közöljük a logisztikus regresszió eredményét?
-> (8.7)](#hogyan-közöljük-a-logisztikus-regresszió-eredményét-8.7) 38**
-
-**[FOGALOMTÁR A BAYES
-STATISZTIKÁHOZ](#fogalomtár-a-bayes-statisztikához) 39**
-
-> **[Bayesiánus valószínűség (szubjektív
-> valószínűség)](#bayesiánus-valószínűség-szubjektív-valószínűség) 39**
->
-> **[Valószínűségszámítási
-> alapfogalmak](#valószínűségszámítási-alapfogalmak) 40**
->
-> [Marginális valószínűség (Marginal probability)
-> p(A)](#marginális-valószínűség-marginal-probability-pa) 40
->
-> [Együttes valószínűség (Joint probability) p(A,B) (olvasd:p(A és
-> B))](#együttes-valószínűség-joint-probability-pab-olvasdpa-és-b) 40
->
-> [Feltételes valószínűség (Conditional probability): p(A\|B) (olvasd:
-> p(A ha B
-> igaz))](#feltételes-valószínűség-conditional-probability-pab-olvasd-pa-ha-b-igaz)
-> 40
->
-> [Valószínűség típusok
-> (http://sites.nicholas.duke.edu/statsreview/probability/jmc/)](#valószínűség-típusok-httpsites.nicholas.duke.edustatsreviewprobabilityjmc)
-> 42
->
-> **[Bayes tétel (Bayes' theorem, Bayes' rule, Bayes'
-> law)](#bayes-tétel-bayes-theorem-bayes-rule-bayes-law) 42**
->
-> **[Bayesiánus következtetés (Bayesian
-> inference)](#bayesiánus-következtetés-bayesian-inference) 43**
->
-> **[Evidencia](#evidencia) 44**
->
-> **[Hipotézis](#hipotézis) 45**
->
-> **[Sűrűségfüggvény (Probability Density Function,
-> PDF)](#sűrűségfüggvény-probability-density-function-pdf) 46**
->
-> **[Valószínűségi tömegfüggvény (probability mass function,
-> PMF)](#valószínűségi-tömegfüggvény-probability-mass-function-pmf) 46**
->
-> **[Prior](#prior) 46**
->
-> **[Likelihood](#likelihood) 48**
->
-> [A likelihood törvény alapján](#a-likelihood-törvény-alapján) 48
->
-> [A likelihood elv](#a-likelihood-elv) 48
->
-> **[Marginális likelihood](#marginális-likelihood) 50**
->
-> **[Posterior valószínűségek](#posterior-valószínűségek) 50**
->
-> **[Bayes faktor (B vagy BF)](#bayes-faktor-b-vagy-bf) 51**
->
-> **[Hihetőségi Intervallum (Credible
-> Interval)](#hihetőségi-intervallum-credible-interval) 54**
->
-> **[Konjugált prior](#konjugált-prior) 55**
->
-> **[A maximum entrópia elve (Principle of maximum
-> entropy)](#a-maximum-entrópia-elve-principle-of-maximum-entropy) 56**
->
-> **[Empirikus Bayes módszer](#empirikus-bayes-módszer) 56**
->
-> **[Cromwell szabály](#cromwell-szabály) 56**
->
-> **[Bernstein--von Mises tétel](#bernsteinvon-mises-tétel) 57**
->
-> **[Bayes-féle információs kritérium (másnéven Schwarz
-> kritérium)](#bayes-féle-információs-kritérium-másnéven-schwarz-kritérium)
-> 57**
->
-> **[Uniform eloszlás](#uniform-eloszlás) 57**
->
-> **[Lagrange szorzó (Lagrange
-> Multiplier)](#lagrange-szorzó-lagrange-multiplier) 58**
->
-> **[Maximum Likelihood becslés (MLE)](#maximum-likelihood-becslés-mle)
-> 58**
->
-> **[Maximum a posteriori becslés](#maximum-a-posteriori-becslés) 59**
->
-> **[Markov-lánc Monte-Carlo (MCMC)
-> módszerek](#markov-lánc-monte-carlo-mcmc-módszerek) 59**
->
-> **[Bayesiánus lineáris regresszió](#bayesiánus-lineáris-regresszió)
-> 60**
->
-> **[Bayesiánus becslés vagy bayesiánus
-> cselekvés](#bayesiánus-becslés-vagy-bayesiánus-cselekvés) 60**
->
-> **[Veszteség függvény (Loss
-> function)](#veszteség-függvény-loss-function) 61**
->
-> **[Közelítő Bayesiánus Eljárások](#közelítő-bayesiánus-eljárások) 61**
->
-> **[Jeffreys-Lindley paradoxon](#jeffreys-lindley-paradoxon) 61**
->
-> **[Hiperparaméter](#hiperparaméter) 62**
->
-> **[Bayesiánus hálózat (Bayesian
-> network)](#bayesiánus-hálózat-bayesian-network) 62**
->
-> **[Savage-Dickey density ratio](#savage-dickey-density-ratio) 62**

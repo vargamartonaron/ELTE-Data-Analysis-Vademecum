@@ -208,7 +208,7 @@ fejezetben is ezt tekintjük mérvadónak. Számos folyóiratnál követelmény,
 hogy a PRISMA követelményeinek eleget tegyen a publikálásra leadott
 tanulmány.
 
-# Összefoglaló írásának lépései
+## Összefoglaló írásának lépései
 
 ## A kutatás céljának meghatározása
 
